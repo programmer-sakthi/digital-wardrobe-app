@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Section from './Section';
 import './App.css';
 
 function App() {
+  const [sections, setSections] = useState([]);
+
+  const addSection = () => {
+    setSections([...sections, { id: Date.now(), elements: [] }]);
+  };
+
+  const addElementToSection = (sectionId, elementText) => {
+    setSections(sections.map(section => 
+      section.id === sectionId
+        ? { ...section, elements: [...section.elements, elementText] }
+        : section
+    ));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={addSection}>Add Section</button>
+      {sections.map(section => (
+        <Section 
+          key={section.id}
+          section={section}
+          addElement={addElementToSection}
+        />
+      ))}
     </div>
   );
 }
