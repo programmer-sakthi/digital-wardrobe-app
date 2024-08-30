@@ -1,34 +1,21 @@
-import React, { useState } from 'react';
-import Section from './Section';
-import './App.css';
+// App.js
+import React from 'react';
+import { ProSidebarProvider} from 'react-pro-sidebar';
+import Sidebar from './Components/SideBar';
 
-function App() {
-  const [sections, setSections] = useState([]);
-
-  const addSection = () => {
-    setSections([...sections, { id: Date.now(), elements: [] }]);
-  };
-
-  const addElementToSection = (sectionId, elementText) => {
-    setSections(sections.map(section => 
-      section.id === sectionId
-        ? { ...section, elements: [...section.elements, elementText] }
-        : section
-    ));
-  };
-
+const App = () => {
   return (
-    <div className="App">
-      <button onClick={addSection}>Add Section</button>
-      {sections.map(section => (
-        <Section 
-          key={section.id}
-          section={section}
-          addElement={addElementToSection}
-        />
-      ))}
-    </div>
+    <ProSidebarProvider>
+      <div style={{ display: 'flex' }}>
+        <Sidebar />
+        <main style={{ flex: 1, padding: '20px' }}>
+          {/* Main content goes here */}
+          <h1>Welcome to the Dashboard</h1>
+          <p>This is the main content area.</p>
+        </main>
+      </div>
+    </ProSidebarProvider>
   );
-}
+};
 
 export default App;

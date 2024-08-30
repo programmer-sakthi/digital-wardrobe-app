@@ -1,64 +1,35 @@
-import React, { useState } from "react";
+// Sidebar.js
+import React from 'react';
+import { ProSidebar, SidebarHeader, SidebarContent, SidebarFooter, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+// import 'react-pro-sidebar/dist/css/styles.css';
+import { FaHome, FaInfo, FaCog, FaUser } from 'react-icons/fa';
 
-import {
-  Menu,
-  MenuItem,
-  ProSidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-} from "react-pro-sidebar";
-
-import { BiCog } from "react-icons/bi";
-import { FaList, FaRegHeart } from "react-icons/fa";
-import {
-  FiArrowLeftCircle,
-  FiArrowRightCircle,
-  FiHome,
-  FiLogOut,
-} from "react-icons/fi";
-import { RiPencilLine } from "react-icons/ri";
-import "react-pro-sidebar/dist/css/styles.css";
-import "./Header.css";
-
-const SideBar = (props) => {
-  const [menuCollapse, setMenuCollapse] = useState(false);
-  const menuIconClick = () => {
-    menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
-  };
-
+const Sidebar = () => {
   return (
-    <>
-      <div id="header">
-        <ProSidebar collapsed={menuCollapse}>
-          <SidebarHeader>
-            <div className="logotext">
-              <p>{menuCollapse ? "Logo" : "Big Logo"}</p>
-            </div>
-            <div className="closemenu" onClick={menuIconClick}>
-              {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
-            </div>
-          </SidebarHeader>
-          <SidebarContent>
-            <Menu iconShape="square">
-              <MenuItem active={true} icon={<FiHome />}>
-                Home
-              </MenuItem>
-              <MenuItem icon={<FaList />}>Category</MenuItem>
-              <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
-              <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
-              <MenuItem icon={<BiCog />}>Settings</MenuItem>
-            </Menu>
-          </SidebarContent>
-          <SidebarFooter>
-            <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
-            </Menu>
-          </SidebarFooter>
-        </ProSidebar>
-      </div>
-    </>
+    <useProSidebar>
+      <SidebarHeader>
+        <div style={{ padding: '20px', fontSize: '20px', fontWeight: 'bold' }}>
+          My Sidebar
+        </div>
+      </SidebarHeader>
+      <SidebarContent>
+        <Menu iconShape="circle">
+          <MenuItem icon={<FaHome />}>Home</MenuItem>
+          <MenuItem icon={<FaUser />}>Profile</MenuItem>
+          <SubMenu title="Settings" icon={<FaCog />}>
+            <MenuItem>Account</MenuItem>
+            <MenuItem>Privacy</MenuItem>
+          </SubMenu>
+          <MenuItem icon={<FaInfo />}>About</MenuItem>
+        </Menu>
+      </SidebarContent>
+      <SidebarFooter>
+        <div style={{ padding: '20px', textAlign: 'center', fontSize: '12px' }}>
+          © 2024 Your Company
+        </div>
+      </SidebarFooter>
+    </useProSidebar>
   );
 };
 
-export default SideBar;
+export default Sidebar;
