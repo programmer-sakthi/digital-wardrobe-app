@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import MainNavigation from './Navigation/MainNavigation';
-// import SideBar from './Components/SideBar';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -11,4 +10,11 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+
+// TODO 
+
+// 1. Light Mode
+
+// 2. Login, SignUp and authentication
 
