@@ -77,9 +77,10 @@
     margin-top: 10px;
 }
 
-.login .forgotPassword a
+.login .forgotPassword span
 {
     color: red;
+    cursor: pointer;
 }
 
 .login .signup
@@ -90,7 +91,8 @@
     gap: 10px;
 }
 
-.login .signup a
+.login .signup span
 {
     color: greenyellow;
+    cursor: pointer;
 }

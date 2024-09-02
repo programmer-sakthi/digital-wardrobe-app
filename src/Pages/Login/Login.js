@@ -1,7 +1,9 @@
 import React from "react";
 import classes from "./Login.module.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate=useNavigate();
   return (
     <div className={classes.container}>
       <div className={classes.login}>
@@ -26,13 +28,16 @@ function Login() {
         </div>
         <div className={classes.forgotPassword}>
           forget your password ?
-          {"   "}
-           <a href="#">Reset password</a>
+           <span onClick={ () => {
+            navigate("/reset-password");
+           }}>Reset password</span>
         </div>
         <button className={classes.loginButton}>Login</button>
         <div className={classes.signup}>
             Not an user ? 
-            < a href="#">Sign up</a>
+            <span onClick={ () => {
+              navigate("/signup")
+            }}>Sign up</span>
         </div>
       </div>
     </div>

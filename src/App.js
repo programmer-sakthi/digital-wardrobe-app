@@ -1,21 +1,23 @@
 // App.js
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./Layout/Layout";
 import AllDresses from "./Pages/All Dresses/AllDresses";
 import Login from "./Pages/Login/Login";
-// import SampleNav from "./Navigation/SampleNav";
+import Signup from "./Pages/Signup/Signup"
+import ResetPassword from "./Pages/ResetPassword/ResetPassword";
+
 const App = () => {
   return (
-    <BrowserRouter>
-      <div className="App">
-        {/* <Layout>
-          <AllDresses />
-        </Layout> */}
-        <Login />
-      </div>
-    </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/all-dresses" element={ <Layout>
+            <AllDresses />
+        </Layout>} />
+      </Routes>
   );
 };
 
