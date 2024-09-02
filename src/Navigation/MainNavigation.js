@@ -37,7 +37,14 @@ function MainNavigation() {
           </button>
           <h3>Sections :</h3>
           {sections.map((element) => (
-            <li key={element.id} className={element.id === currentSection ? 'current-section-item' : 'section-item'} >
+            <li
+              key={element.id}
+              className={
+                element.id === currentSection
+                  ? "current-section-item"
+                  : "section-item"
+              }
+            >
               <span
                 onClick={(e) => {
                   setCurrentSection(element.id);

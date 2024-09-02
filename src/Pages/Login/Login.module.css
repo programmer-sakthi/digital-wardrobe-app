@@ -1,0 +1,96 @@
+.container
+{
+    min-height: 100vh;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua;  */
+}
+
+.login
+{
+    width: 420px;
+    /* height: 50vh; */
+    width: 50vh;
+    background: transparent;
+    /* background-color: blue; */
+    border:2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(200px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+
+.login h1
+{
+    padding-top: none;
+    margin-top: none;
+    text-align: center;
+}
+
+.login .loginDiv
+{
+    width: 100%;
+    /* border: 2px solid yellow; */
+    margin-top: 30px;
+}
+.login .loginLabel
+{
+    width: 100%;
+}
+
+.login .loginInput
+{
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    backdrop-filter: blur(200px);
+    border-radius: 20px;
+    margin-top: 20px;
+    border: 2px solid white;
+    color: white;
+}
+
+.login .loginButton
+{
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    color: #333;
+    font-weight: 700;
+    margin-top: 25px;
+}
+
+
+.login .forgotPassword
+{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.login .forgotPassword a
+{
+    color: red;
+}
+
+.login .signup
+{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.login .signup a
+{
+    color: greenyellow;
+}

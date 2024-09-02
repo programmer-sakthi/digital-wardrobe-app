@@ -1,14 +1,20 @@
-
-
 .navigation
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.navigation ul
 {
     color: white;
     display: flex;
-    gap: 30px;
+    justify-content: space-evenly;
     list-style: none;
+    width: 70%;
 }
 
-.navigation li
+.navigation ul li
 {
     background-color: orange;
     border-radius: 20px;
@@ -16,11 +22,9 @@
     display: flex;
     align-items: center;
     column-gap: 5px;
+    cursor: pointer;
 }
 
 
-.header
-{
-    color: yellow;
-}
+
 
