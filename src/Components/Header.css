@@ -20,6 +20,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }   
 
+@media (max-width : 900px)
+{
+    .header{
+        width: 100%;
+    }
+}
+
 .header div
 {
     margin-left: 10px;
@@ -29,9 +36,19 @@
     gap : 20px;
 }
 
+
 .header h1{
     margin: 10px;
     color: white;
+}
+
+@media (max-width : 200px)
+{
+    .header h1
+    {
+        margin-right: none;
+    }
+
 }
 
 .header nav
@@ -52,6 +69,8 @@
 {
     cursor: pointer;
     user-select: none;
+    text-decoration : "none" ;
+    color: "white" ;
 }
 
 .header nav ul :hover
@@ -60,4 +79,7 @@
     transition-duration: 300ms;
 }
 
-
+a{
+    color: white;
+    text-decoration: none;
+}

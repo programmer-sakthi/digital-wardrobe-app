@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ListDresses from "../../Components/ListDresses";
 import Navigation from "./Navigation";
+import { Card } from "../../Components/Card";
 
 const sections = [
   {
@@ -35,9 +36,9 @@ function AllDresses() {
   const [currentSection,setCurrentSection] = useState(0);
   return (
     <div>
-      <h1 style={{color:"white"}}>Current Section : {currentSection}</h1>
-      <Navigation onClick={setCurrentSection}/>
-      <ListDresses id={currentSection}/>
+      {/* <h1 style={{color:"white"}}>Current Section : {currentSection}</h1> */}
+      <Navigation onClick={setCurrentSection} currentSection={currentSection}/>
+      <ListDresses id={currentSection} />
     </div>
   );
 }

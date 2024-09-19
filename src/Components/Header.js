@@ -15,11 +15,12 @@ function Header() {
       </div>
       <nav style={{ color: "white" }}>
         <ul>
-          <Link to="/alldresses" style={ { textDecoration : "none" , color: "white" }}>
+          <Link to="/all-dresses">
             <li>All Dresses</li>
           </Link>
-          <li>Outfits</li>
-          <li>Laundry</li>
+          <Link to="/outfits" className="link"><li>Outfits</li></Link>
+          <Link to="/laundry"><li>Laundry</li></Link>
+          <Link to="/add-dresses"><li>Add Dresses</li></Link>
         </ul>
       </nav>
     </div>

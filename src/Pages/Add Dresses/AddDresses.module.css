@@ -1,0 +1,29 @@
+.form
+{
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.form > div
+{
+    /* width: fit-content; */
+    border : 3px dotted white;
+}
+
+.form > div > div
+{
+    margin : 20px;
+}
+
+.imageUploadInput
+{
+    display: none;
+}
+
+.imageUpload
+{
+    height: 250px;
+    width: 300px;
+}
