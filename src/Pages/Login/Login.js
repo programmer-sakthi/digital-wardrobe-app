@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
 import classes from "./Login.module.css";
+import { toast } from "react-toastify";
 
 function Login() {
   const navigate = useNavigate();
@@ -13,8 +14,10 @@ function Login() {
     signInWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
         navigate("./all-dresses");
+        toast.success("User logged in succesfully")
       })
       .catch((error) => {
+        toast.error(error.message)
         console.log(error);
       });
   };
