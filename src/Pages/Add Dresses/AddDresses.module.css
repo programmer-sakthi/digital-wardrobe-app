@@ -1,3 +1,4 @@
+
 .form
 {
     color: white;
@@ -25,5 +26,39 @@
 .imageUpload
 {
     height: 250px;
-    width: 300px;
+    width: 250px;
+    border-radius: 20px ;
+    /* filter: drop-shadow(2px 2px 2px 2px); */
+    filter: drop-shadow(0 0 0.75rem crimson);
+}
+
+.imageUploadDiv
+{
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputField
+{
+    display: flex;
+    flex-direction: column;
+    margin : 10px ;
+}
+
+.inputs 
+{
+    display: grid;
+    border: 2px solid red;
+    column-gap: 100px;
+    grid-template-columns: auto auto;
+}
+
+.inputField input{
+    margin-top: 10px;
+    border-radius: 10px ;
+    background-color: #323741;
+    padding: 10px;
 }

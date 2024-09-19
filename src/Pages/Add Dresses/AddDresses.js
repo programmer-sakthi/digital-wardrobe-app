@@ -5,9 +5,7 @@ function AddDresses() {
   const [image, setImage] = useState(null);
   const hiddenFileInput = useRef(null);
 
-  const handleAddDress = () => {
-
-  };
+  const handleAddDress = () => {};
 
   const handleClick = (e) => {
     hiddenFileInput.current.click();
@@ -58,7 +56,7 @@ function AddDresses() {
         <div>
           <h2>Add a dress</h2>
 
-          <div>
+          <div className={classes.imageUploadDiv}>
             <input
               type="file"
               onChange={handleImageChange}
@@ -83,50 +81,52 @@ function AddDresses() {
             </div>
           </div>
 
-          <div>
-            <label>Title</label>
-            <input type="text" />
-          </div>
+          <div className={classes.inputs}>
+            <div className={classes.inputField}>
+              <label>Title</label>
+              <input type="text" />
+            </div>
 
-          <div>
-            <label>Description</label>
-            <input type="text" />
-          </div>
+            <div className={classes.inputField}>
+              <label>Description</label>
+              <input type="text" />
+            </div>
 
-          <div>
-            <label>Category</label>
-          </div>
+            <div className={classes.inputField}>
+              <label>Category</label>
+            </div>
 
-          <div>
-            <label>SubCategory</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Size</label>
-            <input type="number" />
-          </div>
-          <div>
-            <label>Material</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Color</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Price</label>
-            <input type="number" />
-          </div>
-          <div>
-            <label>Purchase Date</label>
-            <input type="date" />
-          </div>
-          <div>
-            <label>Purchased from</label>
-            <input type="text" />
-          </div>
-          <div>
-            <button onClick={handleAddDress}>Add dress</button>
+            <div className={classes.inputField}>
+              <label>SubCategory</label>
+              <input type="text" />
+            </div>
+            <div className={classes.inputField}>
+              <label>Size</label>
+              <input type="number" />
+            </div>
+            <div className={classes.inputField}>
+              <label>Material</label>
+              <input type="text" />
+            </div>
+            <div className={classes.inputField}>
+              <label>Color</label>
+              <input type="text" />
+            </div>
+            <div className={classes.inputField}>
+              <label>Price</label>
+              <input type="number" />
+            </div>
+            <div className={classes.inputField}>
+              <label>Purchase Date</label>
+              <input type="date" />
+            </div>
+            <div className={classes.inputField}>
+              <label>Purchased from</label>
+              <input type="text" />
+            </div>
+            {/* <div className={classes.inputField}>
+              <button onClick={handleAddDress}>Add dress</button>
+            </div> */}
           </div>
         </div>
       </div>
