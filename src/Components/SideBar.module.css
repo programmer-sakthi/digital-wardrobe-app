@@ -1,0 +1,28 @@
+/* SideBar.module.css */
+
+.sideBar {
+    position: absolute; /* Position the sidebar absolutely */
+    top: 60px; /* Adjust this value to control vertical placement below the icon */
+    left: 10px; /* Adjust for horizontal positioning */
+    background-color: white; /* Background color for contrast */
+    border: 1px solid purple; /* Optional: border for styling */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: shadow for depth */
+    padding: 10px; /* Add some padding */
+    z-index: 1000; /* Ensure it appears above other content */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange buttons vertically */
+  }
+  
+  .sideBar button {
+    margin: 5px 0; /* Space between buttons */
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove default border */
+    cursor: pointer; /* Pointer cursor on hover */
+    color: purple; /* Button text color */
+    font-size: 16px; /* Adjust font size */
+  }
+  
+  .sideBar button:hover {
+    text-decoration: underline; /* Underline on hover for effect */
+  }
+  
