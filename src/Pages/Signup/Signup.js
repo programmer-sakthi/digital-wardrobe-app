@@ -11,7 +11,6 @@ import classes from "./Signup.module.css";
 function Signup() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -54,25 +53,16 @@ function Signup() {
           <label className={classes.label}>Name</label>
           <input
             type="text"
-            placeholder="username"
+            placeholder="Name"
             className={classes.input}
             onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className={classes.div}>
-          <label className={classes.label}>UserName</label>
-          <input
-            type="text"
-            placeholder="username"
-            className={classes.input}
-            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
         <div className={classes.div}>
           <label className={classes.label}>Email</label>
           <input
             type="email"
-            placeholder="username"
+            placeholder="Email"
             className={classes.input}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -81,10 +71,20 @@ function Signup() {
           <label className={classes.label}>Password</label>
           <input
             type="password"
-            placeholder="username"
+            placeholder="Password"
             className={classes.input}
             onChange={(e) => setPassword(e.target.value)}
           />
+        </div>
+        <div className={classes.login}>
+          Already Registerd ?
+          <span
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Login
+          </span>
         </div>
         <button className={classes.button} onClick={handleSignUp}>
           SignUp

@@ -62,5 +62,19 @@
     cursor: pointer;
     color: #333;
     font-weight: 700;
-    margin-top: 25px;   
+    margin-top: 40px;   
+}
+
+.signup .login
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.signup .login span
+{
+    color: greenyellow;
+    cursor: pointer;
 }

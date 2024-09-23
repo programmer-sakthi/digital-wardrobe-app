@@ -8,11 +8,11 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 function Login() {
   const navigate = useNavigate();
-  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    signInWithEmailAndPassword(auth, username, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         if (userCredential.user.emailVerified) {
           navigate("./all-dresses");
@@ -31,7 +31,7 @@ function Login() {
   const handleResetPassword = () => 
   {
     const auth = getAuth();
-    sendPasswordResetEmail(auth, username).then(() => {
+    sendPasswordResetEmail(auth, email).then(() => {
     toast.info("Password reset message sent to the entered email");
   })
   .catch((error) => {
@@ -47,13 +47,13 @@ function Login() {
       <div className={classes.login}>
         <h1>Login</h1>
         <div className={classes.loginDiv}>
-          <label className={classes.loginLabel}>UserName</label>
+          <label className={classes.loginLabel}>Email</label>
           <input
-            id="uname"
+            id="mail"
             type="email"
-            placeholder="username"
+            placeholder="Email"
             className={classes.loginInput}
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className={classes.loginDiv}>
