@@ -6,7 +6,6 @@ import Layout from "./Layout/Layout";
 import AddDresses from "./Pages/Add Dresses/AddDresses";
 import AllDresses from "./Pages/All Dresses/AllDresses";
 import Login from "./Pages/Login/Login";
-import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import Signup from "./Pages/Signup/Signup";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +16,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
         <Route
           path="/all-dresses"
           element={

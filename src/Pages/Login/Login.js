@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { auth } from "../../config/firebase";
 import classes from "./Login.module.css";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 function Login() {
   const navigate = useNavigate();
@@ -26,6 +27,20 @@ function Login() {
         console.log(error);
       });
   };
+
+  const handleResetPassword = () => 
+  {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, username).then(() => {
+    toast.info("Password reset message sent to the entered email");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode+" : "+errorMessage)
+    toast.error(errorMessage)
+  });
+  }
 
   return (
     <div className={classes.container}>
@@ -54,9 +69,7 @@ function Login() {
         <div className={classes.forgotPassword}>
           forget your password ?
           <span
-            onClick={() => {
-              navigate("/reset-password");
-            }}
+            onClick={handleResetPassword}
           >
             Reset password
           </span>
