@@ -1,53 +1,41 @@
 import React, { useRef, useState } from "react";
 import classes from "./AddDresses.module.css";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 function AddDresses() {
   const [image, setImage] = useState(null);
   const hiddenFileInput = useRef(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
+  const [size, setSize] = useState("");
+  const [material, setMaterial] = useState("");
+  const [color, setColor] = useState("");
+  const [price, setPrice] = useState("");
+  const [purchaseDate, setPurchaseDate] = useState("");
+  const [purchasedFrom, setPurchasedFrom] = useState("");
 
-  const handleAddDress = () => {};
+  const handleAddDress = async () => {
+    const formData = {
+      image,title,description,category,subCategory,size,material,color,price,purchaseDate,purchasedFrom
+    }
+    const dressDataRef = collection(db , 'DressCollection');
+    await addDoc(dressDataRef, formData)
+  };
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     hiddenFileInput.current.click();
   };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
 
-    // when user cancels file uplaod
     if (file == null) return;
-    const imgname = event.target.files[0].name;
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      const img = new Image();
-      img.src = reader.result;
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const maxSize = Math.max(img.width, img.height);
-        canvas.width = maxSize;
-        canvas.height = maxSize;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(
-          img,
-          (maxSize - img.width) / 2,
-          (maxSize - img.height) / 2
-        );
-        canvas.toBlob(
-          (blob) => {
-            const file = new File([blob], imgname, {
-              type: "image/png",
-              lastModified: Date.now(),
-            });
 
-            console.log(file);
-            setImage(file);
-          },
-          "image/jpeg",
-          0.8
-        );
-      };
-    };
+    const imgURL = URL.createObjectURL(file);
+    setImage(imgURL);
   };
 
   return (
@@ -62,15 +50,12 @@ function AddDresses() {
               onChange={handleImageChange}
               ref={hiddenFileInput}
               className={classes.imageUploadInput}
+              style={{ display: "none" }}
             />
             {image ? image.name : "Choose an Image"}
             <div onClick={handleClick}>
               {image ? (
-                <img
-                  src={URL.createObjectURL(image)}
-                  alt="upload"
-                  className={classes.imageUpload}
-                />
+                <img src={image} alt="upload" className={classes.imageUpload} />
               ) : (
                 <img
                   src={require("./photo.png")}
@@ -84,49 +69,98 @@ function AddDresses() {
           <div className={classes.inputs}>
             <div className={classes.inputField}>
               <label>Title</label>
-              <input type="text" />
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
 
             <div className={classes.inputField}>
               <label>Description</label>
-              <input type="text" />
+              <input
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
             </div>
 
             <div className={classes.inputField}>
               <label>Category</label>
+              <input
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
             </div>
 
             <div className={classes.inputField}>
               <label>SubCategory</label>
-              <input type="text" />
+              <input
+                type="text"
+                value={subCategory}
+                onChange={(e) => setSubCategory(e.target.value)}
+              />
             </div>
+
             <div className={classes.inputField}>
               <label>Size</label>
-              <input type="number" />
+              <input
+                type="number"
+                value={size}
+                onChange={(e) => setSize(e.target.value)}
+              />
             </div>
+
             <div className={classes.inputField}>
               <label>Material</label>
-              <input type="text" />
+              <input
+                type="text"
+                value={material}
+                onChange={(e) => setMaterial(e.target.value)}
+              />
             </div>
+
             <div className={classes.inputField}>
               <label>Color</label>
-              <input type="text" />
+              <input
+                type="text"
+                value={color}
+                onChange={(e) => setColor(e.target.value)}
+              />
             </div>
+
             <div className={classes.inputField}>
               <label>Price</label>
-              <input type="number" />
+              <input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </div>
+
             <div className={classes.inputField}>
               <label>Purchase Date</label>
-              <input type="date" />
+              <input
+                type="date"
+                value={purchaseDate}
+                onChange={(e) => setPurchaseDate(e.target.value)}
+              />
             </div>
+
             <div className={classes.inputField}>
               <label>Purchased from</label>
-              <input type="text" />
+              <input
+                type="text"
+                value={purchasedFrom}
+                onChange={(e) => setPurchasedFrom(e.target.value)}
+              />
             </div>
-            {/* <div className={classes.inputField}>
-              <button onClick={handleAddDress}>Add dress</button>
-            </div> */}
+
+            {/* Uncomment to enable adding the dress */}
+          </div>
+          <div className={classes.inputField}>
+            <button type="button" onClick={handleAddDress}>Add dress</button>
           </div>
         </div>
       </div>

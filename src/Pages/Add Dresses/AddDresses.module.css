@@ -44,6 +44,7 @@
   display: grid;
   border: 2px solid red;
   column-gap: 100px;
+  margin-top: 10px;
   grid-template-columns: auto auto;
 }
 
@@ -53,6 +54,7 @@
   background-color: #323741;
   border: none;
   padding: 10px;
+  outline: none;
 }
 
 .inputField input:hover {
