@@ -10,10 +10,10 @@ export const Card = ({
   buttonText,
   link,
 }) => {
-  // console.log(image);
+  console.log(imgSrc);
   return (
     <div className="card-container">
-      <img src={imgSrc} alt={imgAlt} className="card-img" />
+      <img src={imgSrc} alt={imgSrc} className="card-img" />
 
       {title && <h1 className="card-title">{title}</h1>}
       {description && <p className="card-description">{description}</p>}

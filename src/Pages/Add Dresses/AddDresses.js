@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
-import classes from "./AddDresses.module.css";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { ref, uploadBytes } from "firebase/storage";
+import React, { useRef, useState } from "react";
+import { v4 } from "uuid";
+import { db, storage } from "../../config/firebase";
+import classes from "./AddDresses.module.css";
 
 function AddDresses() {
   const [image, setImage] = useState(null);
@@ -18,11 +20,26 @@ function AddDresses() {
   const [purchasedFrom, setPurchasedFrom] = useState("");
 
   const handleAddDress = async () => {
+    const imageURL = `images/${image.name + v4()}`;
     const formData = {
-      image,title,description,category,subCategory,size,material,color,price,purchaseDate,purchasedFrom
-    }
-    const dressDataRef = collection(db , 'DressCollection');
-    await addDoc(dressDataRef, formData)
+      imageURL,
+      title,
+      description,
+      category,
+      subCategory,
+      size,
+      material,
+      color,
+      price,
+      purchaseDate,
+      purchasedFrom,
+    };
+    const imageRef = ref(storage, imageURL);
+    uploadBytes(imageRef, image).then(() => {
+      console.log("Image Uploaded");
+    });
+    const dressDataRef = collection(db, "DressCollection");
+    await addDoc(dressDataRef, formData);
   };
 
   const handleClick = () => {
@@ -34,8 +51,8 @@ function AddDresses() {
 
     if (file == null) return;
 
-    const imgURL = URL.createObjectURL(file);
-    setImage(imgURL);
+    // const imgURL = URL.createObjectURL(file);
+    setImage(file);
   };
 
   return (
@@ -55,7 +72,11 @@ function AddDresses() {
             {image ? image.name : "Choose an Image"}
             <div onClick={handleClick}>
               {image ? (
-                <img src={image} alt="upload" className={classes.imageUpload} />
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt="upload"
+                  className={classes.imageUpload}
+                />
               ) : (
                 <img
                   src={require("./photo.png")}
@@ -87,11 +108,17 @@ function AddDresses() {
 
             <div className={classes.inputField}>
               <label>Category</label>
-              <input
-                type="text"
+              <select
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              />
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  console.log(e.target.value);
+                }}
+              >
+                <option value="Top">Top</option>
+                <option value="Bottom">Bottom</option>
+                <option value="Shoes">Shoes</option>
+              </select>
             </div>
 
             <div className={classes.inputField}>
@@ -160,7 +187,9 @@ function AddDresses() {
             {/* Uncomment to enable adding the dress */}
           </div>
           <div className={classes.inputField}>
-            <button type="button" onClick={handleAddDress}>Add dress</button>
+            <button type="button" onClick={handleAddDress}>
+              Add dress
+            </button>
           </div>
         </div>
       </div>

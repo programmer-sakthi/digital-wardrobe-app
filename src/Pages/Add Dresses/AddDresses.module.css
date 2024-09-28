@@ -48,7 +48,7 @@
   grid-template-columns: auto auto;
 }
 
-.inputField input {
+.inputField input , .inputField select  {
   margin-top: 10px;
   border-radius: 10px;
   background-color: #323741;

@@ -9,7 +9,7 @@ import { TbHanger } from "react-icons/tb";
 
 function Navigation(props) {
   // const [currentSection,setCurrentSection] = useState(0);
-  console.log(classes);
+  // console.log(classes);
   return (
     <div>
       {/* <h1 style={{color:"white"}}>Current Section : {currentSection}</h1> */}
