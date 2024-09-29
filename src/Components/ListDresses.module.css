@@ -1,18 +1,44 @@
-.container
-{
-    display: flex;
-    flex-wrap: wrap;
-    gap : 20px;
-    justify-content:space-around;
-    margin-top: 40px;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+  margin-top: 40px;
 }
 
 .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 24px;
+  color: #333;
+}
+
+.loaderDiv
+{
+    height: 50vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 50vh; 
-    font-size: 24px; 
-    color: #333; 
+    justify-content: center;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: #ff3d00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
   }
-  
+  100% {
+    transform: rotate(360deg);
+  }
+}

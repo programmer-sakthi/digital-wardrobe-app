@@ -39,7 +39,8 @@ const ListDresses = (props) => {
   return (
     <div className={classes.container}>
       {loading ? (
-        <div className={classes.loading}>Loading...</div> // Loading message
+        // <div className={classes.loading}>Loading...</div> // Loading message
+        <div className={classes.loaderDiv}><span className={classes.loader}></span></div>
       ) : (
         sampleDressList.map((ele, index) => (
           <Card
