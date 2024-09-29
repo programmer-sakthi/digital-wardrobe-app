@@ -14,7 +14,7 @@ const sections = [
   },
   {
     id: 2,
-    name: "Botooms",
+    name: "Botoms",
   },
   {
     id: 3,
@@ -32,12 +32,18 @@ const sections = [
 
 
 
+
 function AllDresses() {
+
+  function onClick(id)
+  { 
+    setCurrentSection(id);
+  }
+
   const [currentSection,setCurrentSection] = useState(0);
   return (
     <div>
-      {/* <h1 style={{color:"white"}}>Current Section : {currentSection}</h1> */}
-      <Navigation onClick={setCurrentSection} currentSection={currentSection}/>
+      <Navigation onClick={onClick} currentSection={currentSection}/>
       <ListDresses id={currentSection} />
     </div>
   );

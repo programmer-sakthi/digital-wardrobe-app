@@ -8,11 +8,8 @@ import { TbHanger } from "react-icons/tb";
 
 
 function Navigation(props) {
-  // const [currentSection,setCurrentSection] = useState(0);
-  // console.log(classes);
   return (
     <div>
-      {/* <h1 style={{color:"white"}}>Current Section : {currentSection}</h1> */}
       <nav className={classes.navigation}>
         <ul >
           <li onClick={ () => props.onClick(0)} className={props.currentSection === 0 ? classes.current : ''}>

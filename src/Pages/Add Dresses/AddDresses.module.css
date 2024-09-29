@@ -42,13 +42,13 @@
 
 .inputs {
   display: grid;
-  border: 2px solid red;
   column-gap: 100px;
   margin-top: 10px;
   grid-template-columns: auto auto;
 }
 
-.inputField input , .inputField select  {
+.inputField input,
+.inputField select {
   margin-top: 10px;
   border-radius: 10px;
   background-color: #323741;
@@ -65,4 +65,11 @@
   border: 2px solid blue;
   outline: none;
   /* background-color: yellow; */
+}
+
+.inputField button {
+  border-radius: 10px;
+  padding: 5px;
+  background-color: blue;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

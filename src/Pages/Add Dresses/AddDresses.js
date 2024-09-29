@@ -115,9 +115,11 @@ function AddDresses() {
                   console.log(e.target.value);
                 }}
               >
-                <option value="Top">Top</option>
-                <option value="Bottom">Bottom</option>
-                <option value="Shoes">Shoes</option>
+                <option value="1">Top</option>
+                <option value="2">Bottom</option>
+                <option value="3">Shoes</option>
+                <option value="4">Accessories</option>
+                <option value="5">Others</option>
               </select>
             </div>
 
@@ -184,7 +186,6 @@ function AddDresses() {
               />
             </div>
 
-            {/* Uncomment to enable adding the dress */}
           </div>
           <div className={classes.inputField}>
             <button type="button" onClick={handleAddDress}>

@@ -51,21 +51,26 @@
 
 }
 
-.header nav
+.header>nav
 {
     width: 50%;
     font-family: "Kanit",sans-serif;
+    display: flex;
+    align-items: center;
 }
 
-.header nav ul
+.header>nav>ul
 {
+    width: 100%;
     display: flex;
     list-style: none;
-    gap : 20px;
     justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    margin: 0;
 }
 
-.header nav ul
+.header>nav>ul
 {
     cursor: pointer;
     user-select: none;
@@ -73,13 +78,13 @@
     color: "white" ;
 }
 
-.header nav ul :hover
+.header>nav>ul :hover
 {
     transform:scale(1.2);
     transition-duration: 300ms;
 }
 
-a{
+.header a{
     color: white;
     text-decoration: none;
 }

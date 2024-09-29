@@ -1,9 +1,9 @@
+import { collection, getDocs } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
 import React, { useEffect, useState } from "react";
+import { db, storage } from "../config/firebase";
 import { Card } from "./Card";
 import classes from "./ListDresses.module.css";
-import { collection, getDocs } from "firebase/firestore";
-import { db, storage } from "../config/firebase";
-import { getDownloadURL, ref } from "firebase/storage";
 
 const ListDresses = (props) => {
   const [sampleDressList, setSampleDressList] = useState([]);
@@ -18,15 +18,23 @@ const ListDresses = (props) => {
       return {
         title: doc.data().title,
         imgSrc: imageSrc,
+        category: doc.data().category
       };
     });
     const dresses = await Promise.all(dressPromises);
-    setSampleDressList(dresses);
+    console.log("Non filtered :")
+    console.log(dresses);
+    const filteredDresses=dresses.filter( (ele) => {
+      console.log(ele)
+      console.log(ele.category + " === "+props.id + (parseInt(ele.category) === props.id) )
+      return parseInt(ele.category) === props.id
+    })
+    setSampleDressList(filteredDresses);
+    console.log("Filtered  ")
+    console.log(filteredDresses);
   };
 
-  useEffect(() => {
-    displayFireBase();
-  }, []);
+  displayFireBase()
 
   return (
     <div className={classes.container}>
@@ -34,11 +42,11 @@ const ListDresses = (props) => {
         <Card
           key={index}
           imgSrc={ele.imgSrc}
-          imgAlt={ele.title} // or another appropriate alt text
+          imgAlt={ele.title}
           title={ele.title}
-          description={ele.description} // Make sure you add description in the fetched data
+          description={ele.description}
           buttonText="More Info"
-          link="ottostore.com" // Update as needed
+          link="ottostore.com"
         />
       ))}
     </div>

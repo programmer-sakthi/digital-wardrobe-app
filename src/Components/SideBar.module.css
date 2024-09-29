@@ -1,36 +1,10 @@
-/* SideBar.module.css */
-
-.sideBar {
-  padding: 0px;
-  margin: 0px;
-  background-color: gray;
-  border-radius: 10px;
-  border: 1px solid purple; 
-  position: absolute; /* Position the sidebar absolutely */
-  top: 76px;  
-  left: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-  z-index: 1000; /* Ensure it appears above other content */
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column;
-  gap : 0px;
-  height: fit-content;
-  justify-content: space-around;
+.dropdown *
+{
+  color: black !important;
 }
 
-.sideBar button {
-  margin: 0px;
-  padding: 0px;
-  background-color: transparent; /* Transparent background */
-  border: none;
-  width: 100%;
-  border: 2px solid red;
-  height: 100%; 
-  cursor: pointer;
-  color: purple;
-  font-size: 16px; 
-}
-
-.sideBar button:hover {
-  text-decoration: underline;
+.dropdownButton{
+  background-color: transparent !important;
+  outline: none !important;
+  border: none !important; 
 }
