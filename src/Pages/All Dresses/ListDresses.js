@@ -1,16 +1,16 @@
 import { collection, getDocs } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import React, { useEffect, useState } from "react";
-import { db, storage } from "../config/firebase";
 import { Card } from "./Card";
+import { db, storage } from "../../config/firebase";
 import classes from "./ListDresses.module.css";
 
 const ListDresses = (props) => {
-  const [sampleDressList, setSampleDressList] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [dressList, setDressList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const displayFireBase = async () => {
-    setLoading(true); // Start loading
+  const fetchFireBase = async () => {
+    setLoading(true);
     const dressDataRef = collection(db, "DressCollection");
     const arr = await getDocs(dressDataRef);
     const dressPromises = arr.docs.map(async (doc) => {
@@ -25,24 +25,28 @@ const ListDresses = (props) => {
     });
 
     const dresses = await Promise.all(dressPromises);
-    const filteredDresses = dresses.filter(
-      (ele) => parseInt(ele.category) === props.id
-    );
-    setSampleDressList(filteredDresses);
-    setLoading(false); // Stop loading
+    if (props.id === 0) setDressList(dresses);
+    else {
+      const filteredDresses = dresses.filter(
+        (ele) => parseInt(ele.category) === props.id
+      );
+      setDressList(filteredDresses);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
-    displayFireBase();
+    fetchFireBase();
   }, [props.id]);
 
   return (
     <div className={classes.container}>
       {loading ? (
-        // <div className={classes.loading}>Loading...</div> // Loading message
-        <div className={classes.loaderDiv}><span className={classes.loader}></span></div>
+        <div className={classes.loaderDiv}>
+          <span className={classes.loader}></span>
+        </div>
       ) : (
-        sampleDressList.map((ele, index) => (
+        dressList.map((ele, index) => (
           <Card
             key={index}
             imgSrc={ele.imgSrc}

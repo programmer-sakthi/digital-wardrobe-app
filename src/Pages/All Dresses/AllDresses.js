@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import ListDresses from "../../Components/ListDresses";
+import ListDresses from "./ListDresses";
 import Navigation from "./Navigation";
-import { Card } from "../../Components/Card";
 
+
+// this list is only for reference purpose , Website will work fine even  without this
 const sections = [
   {
     id: 0,
-    name: "All"
+    name: "All",
   },
   {
     id: 1,
@@ -30,20 +31,15 @@ const sections = [
   },
 ];
 
-
-
-
 function AllDresses() {
-
-  function onClick(id)
-  { 
+  function onClick(id) {
     setCurrentSection(id);
   }
 
-  const [currentSection,setCurrentSection] = useState(0);
+  const [currentSection, setCurrentSection] = useState(0);
   return (
     <div>
-      <Navigation onClick={onClick} currentSection={currentSection}/>
+      <Navigation onClick={onClick} currentSection={currentSection} />
       <ListDresses id={currentSection} />
     </div>
   );
