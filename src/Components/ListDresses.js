@@ -7,8 +7,10 @@ import classes from "./ListDresses.module.css";
 
 const ListDresses = (props) => {
   const [sampleDressList, setSampleDressList] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
   const displayFireBase = async () => {
+    setLoading(true); // Start loading
     const dressDataRef = collection(db, "DressCollection");
     const arr = await getDocs(dressDataRef);
     const dressPromises = arr.docs.map(async (doc) => {
@@ -18,37 +20,39 @@ const ListDresses = (props) => {
       return {
         title: doc.data().title,
         imgSrc: imageSrc,
-        category: doc.data().category
+        category: doc.data().category,
       };
     });
+
     const dresses = await Promise.all(dressPromises);
-    console.log("Non filtered :")
-    console.log(dresses);
-    const filteredDresses=dresses.filter( (ele) => {
-      console.log(ele)
-      console.log(ele.category + " === "+props.id + (parseInt(ele.category) === props.id) )
-      return parseInt(ele.category) === props.id
-    })
+    const filteredDresses = dresses.filter(
+      (ele) => parseInt(ele.category) === props.id
+    );
     setSampleDressList(filteredDresses);
-    console.log("Filtered  ")
-    console.log(filteredDresses);
+    setLoading(false); // Stop loading
   };
 
-  displayFireBase()
+  useEffect(() => {
+    displayFireBase();
+  }, [props.id]);
 
   return (
     <div className={classes.container}>
-      {sampleDressList.map((ele, index) => (
-        <Card
-          key={index}
-          imgSrc={ele.imgSrc}
-          imgAlt={ele.title}
-          title={ele.title}
-          description={ele.description}
-          buttonText="More Info"
-          link="ottostore.com"
-        />
-      ))}
+      {loading ? (
+        <div className={classes.loading}>Loading...</div> // Loading message
+      ) : (
+        sampleDressList.map((ele, index) => (
+          <Card
+            key={index}
+            imgSrc={ele.imgSrc}
+            imgAlt={ele.title}
+            title={ele.title}
+            description={ele.description}
+            buttonText="More Info"
+            link="ottostore.com"
+          />
+        ))
+      )}
     </div>
   );
 };
