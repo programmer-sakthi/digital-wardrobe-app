@@ -1,8 +1,8 @@
 import { collection, getDocs } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import React, { useEffect, useState } from "react";
+import { auth, db, storage } from "../../config/firebase";
 import { Card } from "./Card";
-import { db, storage } from "../../config/firebase";
 import classes from "./ListDresses.module.css";
 
 const ListDresses = (props) => {
@@ -21,15 +21,24 @@ const ListDresses = (props) => {
         title: doc.data().title,
         imgSrc: imageSrc,
         category: doc.data().category,
+        uid: doc.data().uid,
       };
     });
 
     const dresses = await Promise.all(dressPromises);
-    if (props.id === 0) setDressList(dresses);
-    else {
-      const filteredDresses = dresses.filter(
-        (ele) => parseInt(ele.category) === props.id
-      );
+    if (props.id === 0) {
+      const filteredDresses = dresses.filter((ele) => {
+        return ele.uid === auth.currentUser.uid;
+      });
+      setDressList(filteredDresses);
+    } else {
+      const filteredDresses = dresses.filter((ele) => {
+        return (
+          parseInt(ele.category) === props.id &&
+          ele.uid === auth.currentUser.uid
+        );
+      });
+
       setDressList(filteredDresses);
     }
     setLoading(false);

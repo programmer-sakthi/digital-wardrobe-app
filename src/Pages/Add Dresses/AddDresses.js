@@ -2,7 +2,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useRef, useState } from "react";
 import { v4 } from "uuid";
-import { db, storage } from "../../config/firebase";
+import { auth, db, storage } from "../../config/firebase";
 import classes from "./AddDresses.module.css";
 
 function AddDresses() {
@@ -20,7 +20,8 @@ function AddDresses() {
   const [purchasedFrom, setPurchasedFrom] = useState("");
 
   const handleAddDress = async () => {
-    const imageURL = `images/${image.name + v4()}`;
+    const user = auth.currentUser;
+    const imageURL = `users/${user.uid}/${image.name + v4()}`;
     const formData = {
       imageURL,
       title,
@@ -33,6 +34,7 @@ function AddDresses() {
       price,
       purchaseDate,
       purchasedFrom,
+      uid : user.uid
     };
     const imageRef = ref(storage, imageURL);
     uploadBytes(imageRef, image).then(() => {
@@ -185,7 +187,6 @@ function AddDresses() {
                 onChange={(e) => setPurchasedFrom(e.target.value)}
               />
             </div>
-
           </div>
           <div className={classes.inputField}>
             <button type="button" onClick={handleAddDress}>

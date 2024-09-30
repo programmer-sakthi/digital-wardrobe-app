@@ -59,8 +59,7 @@
     align-items: center;
 }
 
-.header>nav>ul
-{
+.header>nav>ul {
     width: 100%;
     display: flex;
     list-style: none;
@@ -70,21 +69,17 @@
     margin: 0;
 }
 
-.header>nav>ul
-{
+.header>nav>ul li {
     cursor: pointer;
     user-select: none;
-    text-decoration : "none" ;
-    color: "white" ;
 }
 
-.header>nav>ul :hover
-{
-    transform:scale(1.2);
+.header>nav>ul li:hover:not(:nth-child(5)) {
+    transform: scale(1.2);
     transition-duration: 300ms;
 }
 
-.header a{
+.header a {
     color: white;
     text-decoration: none;
 }
