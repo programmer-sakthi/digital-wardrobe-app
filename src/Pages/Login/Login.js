@@ -1,19 +1,25 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { auth } from "../../config/firebase";
 import classes from "./Login.module.css";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
+  const handleLogin = async () => {
+    setLoading(true);
+    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        setLoading(false);
         if (userCredential.user.emailVerified) {
           navigate("./all-dresses");
           toast.success("User logged in succesfully");
@@ -28,66 +34,69 @@ function Login() {
       });
   };
 
-  const handleResetPassword = () => 
-  {
+  const handleResetPassword = () => {
     const auth = getAuth();
-    sendPasswordResetEmail(auth, email).then(() => {
-    toast.info("Password reset message sent to the entered email");
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode+" : "+errorMessage)
-    toast.error(errorMessage)
-  });
-  }
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        toast.info("Password reset message sent to the entered email");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode + " : " + errorMessage);
+        toast.error(errorMessage);
+      });
+  };
 
   return (
     <div className={classes.container}>
-      <div className={classes.login}>
-        <h1>Login</h1>
-        <div className={classes.loginDiv}>
-          <label className={classes.loginLabel}>Email</label>
-          <input
-            id="mail"
-            type="email"
-            placeholder="Email"
-            className={classes.loginInput}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+      {loading ? (
+        <div className={classes.loaderDiv}>
+          <span className={classes.loader}></span>
+          <h3>Logging in .... </h3>
         </div>
-        <div className={classes.loginDiv}>
-          <label className={classes.loginLabel}>Password</label>
-          <input
-            id="uname"
-            type="password"
-            placeholder="password"
-            className={classes.loginInput}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+      ) : (
+        <div className={classes.login}>
+          <h1>Login</h1>
+          <div className={classes.loginDiv}>
+            <label className={classes.loginLabel}>Email</label>
+            <input
+              id="mail"
+              type="email"
+              placeholder="Email"
+              className={classes.loginInput}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className={classes.loginDiv}>
+            <label className={classes.loginLabel}>Password</label>
+            <input
+              id="uname"
+              type="password"
+              placeholder="password"
+              className={classes.loginInput}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className={classes.forgotPassword}>
+            forget your password ?
+            <span onClick={handleResetPassword}>Reset password</span>
+          </div>
+          <button className={classes.loginButton} onClick={handleLogin}>
+            Login
+          </button>
+          <div className={classes.signup}>
+            Not an user ?
+            <span
+              onClick={() => {
+                navigate("/signup");
+              }}
+            >
+              Sign up
+            </span>
+          </div>
         </div>
-        <div className={classes.forgotPassword}>
-          forget your password ?
-          <span
-            onClick={handleResetPassword}
-          >
-            Reset password
-          </span>
-        </div>
-        <button className={classes.loginButton} onClick={handleLogin}>
-          Login
-        </button>
-        <div className={classes.signup}>
-          Not an user ?
-          <span
-            onClick={() => {
-              navigate("/signup");
-            }}
-          >
-            Sign up
-          </span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
