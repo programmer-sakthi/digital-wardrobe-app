@@ -4,6 +4,11 @@ import React, { useEffect, useState } from "react";
 import { auth, db, storage } from "../../config/firebase";
 import { Card } from "./Card";
 import classes from "./ListDresses.module.css";
+import matchers from "@testing-library/jest-dom/matchers";
+
+
+
+
 
 const ListDresses = (props) => {
   const [dressList, setDressList] = useState([]);
@@ -18,10 +23,18 @@ const ListDresses = (props) => {
       const imageRef = ref(storage, imageURL);
       const imageSrc = await getDownloadURL(imageRef);
       return {
-        title: doc.data().title,
         imgSrc: imageSrc,
+        title: doc.data().title,
+        description: doc.data().description,
         category: doc.data().category,
-        uid: doc.data().uid,
+        subCategory : doc.data().subCategory,
+        size: doc.data().size,
+        material: doc.data().material,
+        color: doc.data().color,
+        price: doc.data().price,
+        purchaseDate: doc.data().purchaseDate,
+        purchasedFrom: doc.data().purchasedFrom,
+        uid: doc.data().uid
       };
     });
 
@@ -57,13 +70,7 @@ const ListDresses = (props) => {
       ) : (
         dressList.map((ele, index) => (
           <Card
-            key={index}
-            imgSrc={ele.imgSrc}
-            imgAlt={ele.title}
-            title={ele.title}
-            description={ele.description}
-            buttonText="More Info"
-            link="ottostore.com"
+            dressList={ele}
           />
         ))
       )}

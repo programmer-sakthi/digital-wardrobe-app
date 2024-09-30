@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import { v4 } from "uuid";
 import { auth, db, storage } from "../../config/firebase";
 import classes from "./AddDresses.module.css";
+import { toast } from "react-toastify";
 
 function AddDresses() {
   const [image, setImage] = useState(null);
@@ -42,6 +43,7 @@ function AddDresses() {
     });
     const dressDataRef = collection(db, "DressCollection");
     await addDoc(dressDataRef, formData);
+    toast.success("Dress added successfully")
   };
 
   const handleClick = () => {
@@ -114,9 +116,9 @@ function AddDresses() {
                 value={category}
                 onChange={(e) => {
                   setCategory(e.target.value);
-                  console.log(e.target.value);
                 }}
               >
+                <option value="">Select a category</option>
                 <option value="1">Top</option>
                 <option value="2">Bottom</option>
                 <option value="3">Shoes</option>

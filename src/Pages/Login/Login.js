@@ -60,7 +60,7 @@ function Login() {
           <label className={classes.loginLabel}>Password</label>
           <input
             id="uname"
-            type="text"
+            type="password"
             placeholder="password"
             className={classes.loginInput}
             onChange={(e) => setPassword(e.target.value)}

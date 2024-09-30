@@ -56,8 +56,15 @@
 
 .Modal-header {
   display: flex;
-  justify-content: flex-end;
-  /* border: 2px solid red; */
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+
+.Modal-header button {
+  border: none;
+  outline: none;
+  background-color: transparent;
 }
 
 .Modal-header .close {
@@ -66,4 +73,22 @@
   padding: 4px;
   font-size: 40px;
   margin-right: 10px;
+}
+
+
+.modal-content 
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content table 
+{
+  margin: 20px;
+  row-gap: 10px;
+  background-color: transparent !important;
+  border-collapse: separate;
+  border-spacing: 0 15px;
 }
