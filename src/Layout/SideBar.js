@@ -1,31 +1,86 @@
-import { signOut } from "firebase/auth";
-import React from "react";
+import { deleteUser, signOut } from "firebase/auth";
+import React, { useState } from "react";
+import { Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { auth } from "../config/firebase";
 import classes from "./SideBar.module.css";
-import { Dropdown } from "react-bootstrap";
 
 export function SideBar() {
   const navigate = useNavigate();
-
+  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
+    useState(false);
   const handleLogOut = async () => {
     await signOut(auth);
     toast.info("User logged out successfully !");
     navigate("/");
   };
 
-  return (
-    <Dropdown>
+  const handleDeleteAccount = async () => {
+    setShowDeleteConfirmationModal(true);
+  };
+
+  const DeleteConfirmationModal = () => {
+    const user = auth.currentUser;
+    return (
+      <div className={classes.DeleteModal}>
+        <h3>Are you sure want to delete your account ? </h3>
+        <div>
+          <button
+            onClick={async () => {
+              await deleteUser(user).then(() => {
+                toast.info("User deleted successfully");
+                navigate("/");
+              });
+            }}
+          >
+            Yes
+          </button>
+          <button
+            onClick={() => {
+              setShowDeleteConfirmationModal(false);
+            }}
+          >
+            No
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const DropDownMenu = () => {
+    return (
+      <Dropdown>
         <Dropdown.Toggle className={classes.dropdownButton}>
           More
         </Dropdown.Toggle>
-        <Dropdown.Menu  className={classes.dropdown}>
-          <Dropdown.Item>Profile</Dropdown.Item>
+        <Dropdown.Menu className={classes.dropdown}>
+          <Dropdown.Item onClick={() => navigate("/profile")}>
+            Profile
+          </Dropdown.Item>
           <Dropdown.Item onClick={handleLogOut}>Logout</Dropdown.Item>
-          <Dropdown.Item>About the creater</Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              // navigate to my portfoio
+            }}
+          >
+            About the creater
+          </Dropdown.Item>
+          <Dropdown.Item onClick={handleDeleteAccount}>
+            Delete account
+          </Dropdown.Item>
         </Dropdown.Menu>
-    </Dropdown>
+      </Dropdown>
+    );
+  };
+
+  return (
+    <div>
+      {showDeleteConfirmationModal ? (
+        <DeleteConfirmationModal />
+      ) : (
+        <DropDownMenu />
+      )}
+    </div>
   );
 }
-

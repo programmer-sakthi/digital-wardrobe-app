@@ -1,10 +1,42 @@
-.dropdown *
-{
+.dropdown * {
   color: black !important;
 }
 
-.dropdownButton{
+.dropdownButton {
   background-color: transparent !important;
   outline: none !important;
-  border: none !important; 
+  border: none !important;
+}
+
+.DeleteModal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  flex-direction: column;
+}
+
+.DeleteModal div {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.DeleteModal div button {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.DeleteModal div button:nth-child(1) {
+  background-color: red;
+}
+
+.DeleteModal div button:nth-child(2) {
+  background-color: green;
 }

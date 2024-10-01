@@ -9,6 +9,7 @@ import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Profile from "./Pages/Profile/Profile";
 
 const App = () => {
   return (
@@ -29,6 +30,14 @@ const App = () => {
           element={
             <Layout>
               <AddDresses />
+            </Layout>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Layout>
+              <Profile />
             </Layout>
           }
         />

@@ -1,0 +1,29 @@
+.imageContainer{
+    border-radius: 50%;
+}
+
+.imageUploadInput {
+    display: none;
+  }
+  
+  .imageUpload {
+    height: 250px;
+    width: 250px;
+    border-radius: 20px;
+    /* filter: drop-shadow(2px 2px 2px 2px); */
+    filter: drop-shadow(0 0 0.75rem crimson);
+  }
+  
+  .imageUploadDiv {
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .inputField {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+  }  

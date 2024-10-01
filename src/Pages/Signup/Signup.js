@@ -20,6 +20,7 @@ function Signup() {
       await createUserWithEmailAndPassword(auth, email, password).then(
         async (userCred) => {
           const user = userCred.user;
+          user.displayName=name;
           setUser(user); // store the user to check verification later
           await sendEmailVerification(user);
           toast.info("Verification email sent. Please verify your email.");
