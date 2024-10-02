@@ -11,6 +11,7 @@ import classes from "./Login.module.css";
 
 function Login() {
   const navigate = useNavigate();
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ function Login() {
       .then((userCredential) => {
         setLoading(false);
         if (userCredential.user.emailVerified) {
-          navigate("./all-dresses");
+          navigate("/all-dresses");
           toast.success("User logged in succesfully");
         } else {
           toast.error("Email not verified");

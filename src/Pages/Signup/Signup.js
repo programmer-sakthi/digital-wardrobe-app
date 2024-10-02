@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,8 +20,13 @@ function Signup() {
     try {
       await createUserWithEmailAndPassword(auth, email, password).then(
         async (userCred) => {
-          const user = userCred.user;
-          user.displayName=name;
+          const user = auth.currentUser;
+          updateProfile(user, {
+            displayName: name,
+            photoURL:
+              "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1727758525~exp=1727759125~hmac=29ddd273ae3b1d89c550dc741440f22f2fa13bd3fda8f1ca528f3ae6d361275e"
+          });
+
           setUser(user); // store the user to check verification later
           await sendEmailVerification(user);
           toast.info("Verification email sent. Please verify your email.");

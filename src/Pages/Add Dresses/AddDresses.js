@@ -55,7 +55,6 @@ function AddDresses() {
 
     if (file == null) return;
 
-    // const imgURL = URL.createObjectURL(file);
     setImage(file);
   };
 

@@ -1,29 +1,22 @@
-.imageContainer{
-    border-radius: 50%;
+.profileContainer{
+  width: 100%;
+  border: 5px solid red;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: White;
 }
 
-.imageUploadInput {
-    display: none;
-  }
-  
-  .imageUpload {
-    height: 250px;
-    width: 250px;
-    border-radius: 20px;
-    /* filter: drop-shadow(2px 2px 2px 2px); */
-    filter: drop-shadow(0 0 0.75rem crimson);
-  }
-  
-  .imageUploadDiv {
-    /* border: 2px solid red; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .inputField {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-  }  
+
+.profilePicContainer img
+{
+  border-radius: 50%;
+  height: 140px;
+  width: 140px;
+}
+
+.profileContainer *{
+  margin: 10px;
+}

@@ -61,7 +61,7 @@ export function SideBar() {
           <Dropdown.Item onClick={handleLogOut}>Logout</Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
-              // navigate to my portfoio
+              window.open("https://www.github.com/programmer-sakthi", "_blank");
             }}
           >
             About the creater
