@@ -7,6 +7,7 @@ import classes from "./Profile.module.css";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state for image upload
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -25,29 +26,38 @@ const Profile = () => {
     if (!file) {
       return;
     }
-    const idToken = await auth.currentUser.getIdToken();
 
-    const imageURL = `profilePics/${user.uid}/profilepic`;
+    // Check if the user is authenticated
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      toast.error("User is not authenticated.");
+      return;
+    }
+
+    const imageURL = `profilePics/${currentUser.uid}/profilepic`;
     const imageRef = ref(storage, imageURL);
 
+    setLoading(true); // Set loading state to true
+
     try {
+      // Upload the image
       await uploadBytes(imageRef, file);
       toast.success("Image has been successfully uploaded");
 
+      // Get the download URL
       const imageSrc = await getDownloadURL(imageRef);
 
-      await updateProfile(user, {
-        photoURL: imageSrc,
-        idToken: idToken
-      });
+      // Update user profile with new photo URL
+      await updateProfile(currentUser, { photoURL: imageSrc });
 
-      //
-
-      const updatedUser = { ...user, photoURL: imageSrc };
+      // Update local user state
+      const updatedUser = { ...currentUser, photoURL: imageSrc };
       setUser(updatedUser);
     } catch (error) {
       toast.error("Error uploading image: " + error.message);
       console.log(error);
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -55,7 +65,9 @@ const Profile = () => {
     <div className={classes.profileContainer}>
       <div className={classes.profilePicContainer}>
         <img src={user.photoURL} alt="Profile pic" />
-        <input type="file" onChange={handleImageChange} />
+        <input type="file" onChange={handleImageChange} disabled={loading} />
+        {loading && <p style={{ color: "white" }}>Uploading...</p>}{" "}
+        {/* Display loading message */}
       </div>
       <h5>Name: {user.displayName}</h5>
       <h5>Email: {user.email}</h5>
