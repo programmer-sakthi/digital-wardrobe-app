@@ -7,7 +7,8 @@ import classes from "./Profile.module.css";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false); // Loading state for image upload
+  const [loading, setLoading] = useState(false); // For upload loading state
+  const [imageLoading, setImageLoading] = useState(false); // For image loading state
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -37,7 +38,8 @@ const Profile = () => {
     const imageURL = `profilePics/${currentUser.uid}/profilepic`;
     const imageRef = ref(storage, imageURL);
 
-    setLoading(true); // Set loading state to true
+    setLoading(true); // Set loading state for upload
+    setImageLoading(true); // Set loading state for image display
 
     try {
       // Upload the image
@@ -53,21 +55,32 @@ const Profile = () => {
       // Update local user state
       const updatedUser = { ...currentUser, photoURL: imageSrc };
       setUser(updatedUser);
+      
+      // Set image loading to true to show placeholder until loaded
+      setImageLoading(true);
+
+      // Load the new image to ensure it is ready before displaying
+      const img = new Image();
+      img.src = imageSrc;
+      img.onload = () => {
+        setImageLoading(false); // Image has loaded
+        setLoading(false); // Upload is complete
+      };
+      
     } catch (error) {
       toast.error("Error uploading image: " + error.message);
       console.log(error);
-    } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false); // Reset loading state on error
     }
   };
 
   return (
     <div className={classes.profileContainer}>
       <div className={classes.profilePicContainer}>
-        <img src={user.photoURL} alt="Profile pic" />
+        {imageLoading && <div className={classes.loadingOverlay}>Loading...</div>} {/* Loading overlay */}
+        <img src={user.photoURL} alt="Profile pic" style={{ display: imageLoading ? 'none' : 'block' }} />
         <input type="file" onChange={handleImageChange} disabled={loading} />
-        {loading && <p style={{ color: "white" }}>Uploading...</p>}{" "}
-        {/* Display loading message */}
+        {loading && <p style={{ color: "white" }}>Uploading...</p>} {/* Display upload message */}
       </div>
       <h5>Name: {user.displayName}</h5>
       <h5>Email: {user.email}</h5>
