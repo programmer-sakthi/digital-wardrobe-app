@@ -1,10 +1,9 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { auth, db, storage } from "../../config/firebase"; // Include storage
+import { auth, db } from "../../config/firebase"; // Remove storage
 import AddOutfit from "./AddOutfit";
 import { v4 } from "uuid";
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 const Outfit = () => {
   const [outfits, setOutfits] = useState([]);
@@ -12,26 +11,16 @@ const Outfit = () => {
 
   const createOutfit = async (outfit) => {
     setShowAddOutfit(false);
-    const user = auth.currentUser;
+    const outfitCollectionRef = collection(db, "OutfitCollection");
 
     try {
-      // Create a unique image URL path
-      const imgURL = `outfits/${user.uid}/${outfit.image.name}_${v4()}`;
-
-      // Upload the image to Firebase Storage
-      const imageRef = ref(storage, imgURL);
-      await uploadBytes(imageRef, outfit.image); // Upload the image
-
-      // Get the absolute URL for the uploaded image
-      const imageURL = await getDownloadURL(imageRef);
-
-      const outfitCollectionRef = collection(db, "OutfitCollection");
       const newOutfit = {
         name: outfit.name,
         dresses: outfit.dresses,
-        imageURL: imageURL // Store the complete image URL
+        imageURL: outfit.image // Directly use the image URL passed from AddOutfit
       };
-      await addDoc(outfitCollectionRef, newOutfit); // Add outfit to Firestore
+      setOutfits([...outfits, newOutfit]);
+      await addDoc(outfitCollectionRef, newOutfit);
       toast.success("Outfit added successfully!");
     } catch (error) {
       toast.error(`Error adding outfit: ${error.message}`);
@@ -74,7 +63,6 @@ const Outfit = () => {
       </div>
       <div style={{ color: "white" }}>
         <h1>Your Outfits:</h1>
-        {console.log(outfits)}
         <div>
           {outfits.map((outfit) => (
             <div key={outfit.id}>

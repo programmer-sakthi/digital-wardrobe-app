@@ -24,11 +24,11 @@ const AddOutfit = (props) => {
 
   const handleImageUpload = async () => {
     const user = auth.currentUser;
-    const imgURL = `outfits/${user.uid}/${image.name + v4()}`;
+    const imgURL = `outfits/${user.uid}/${image.name}_${v4()}`;
     const imageRef = ref(storage, imgURL);
     await uploadBytes(imageRef, image);
-    console.log("Image Uploaded");
-    return imgURL; 
+    const downloadURL = await getDownloadURL(imageRef); // Get the download URL
+    return downloadURL; 
   };
 
   const fetchFireBase = async () => {
@@ -41,37 +41,24 @@ const AddOutfit = (props) => {
       return { id: doc.id, data: { ...doc.data(), imgSrc: imageSrc } };
     });
     const dresses = (await Promise.all(dressPromises)).filter(
-      (ele) =>
-        ele.data.uid === auth.currentUser.uid && ele.data.category === category
+      (ele) => ele.data.uid === auth.currentUser.uid && ele.data.category === category
     );
     setDressList(dresses);
   };
 
   const handleDressClick = (dress) => {
     setSelectedDressList((prevList) => {
-      const isSelected = prevList.some(
-        (selectedDress) => selectedDress.id === dress.id
-      );
-      if (isSelected) {
-        return prevList.filter(
-          (selectedDress) => selectedDress.id !== dress.id
-        );
-      } else {
-        return [...prevList, dress];
-      }
+      const isSelected = prevList.some(selectedDress => selectedDress.id === dress.id);
+      return isSelected ? prevList.filter(selectedDress => selectedDress.id !== dress.id) : [...prevList, dress];
     });
   };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    if (file == null) return;
-    setImage(file);
+    if (file) setImage(file);
   };
 
-  const availableDresses = dressList.filter(
-    (dress) =>
-      !selectedDressList.some((selectedDress) => selectedDress.id === dress.id)
-  );
+  const availableDresses = dressList.filter(dress => !selectedDressList.some(selectedDress => selectedDress.id === dress.id));
 
   return (
     <div className={classes.AddOutfit}>
@@ -133,20 +120,14 @@ const AddOutfit = (props) => {
               const outfit = {
                 name: outfitName,
                 dresses: selectedDressList,
-                image: imageUrl, // Pass the URL instead of the file
+                image: imageUrl, // Use the upload URL
               };
               props.handleAdd(outfit);
             }}
           >
             Add
           </button>
-          <button
-            onClick={() => {
-              props.closeModal();
-            }}
-          >
-            Cancel
-          </button>
+          <button onClick={props.closeModal}>Cancel</button>
         </div>
       </div>
     </div>
