@@ -16,7 +16,7 @@ const ListDresses = (props) => {
 
   const fetchFireBase = async () => {
     setLoading(true);
-    const dressDataRef = collection(db, "DressCollection");
+    const dressDataRef = collection(db, "DressCollection"); 
     const arr = await getDocs(dressDataRef);
     const dressPromises = arr.docs.map(async (doc) => {
       const imageURL = doc.data().imageURL;

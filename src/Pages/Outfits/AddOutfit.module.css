@@ -1,0 +1,131 @@
+.AddOutfit {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(52, 46, 78, 0.581);
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000; /* Ensure it appears above other content */
+  }
+  
+  .modalContent {
+    background-color: white; /* Background for modal content */
+    border-radius: 8px; /* Rounded corners */
+    max-height: 90vh; /* Maximum height of the modal */
+    width: 100%; /* Full width */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 20px; /* Padding inside the modal */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  }
+  
+  /* Hide the scrollbar while keeping the ability to scroll */
+  .modalContent::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+  
+  .modalContent {
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    scrollbar-width: none; /* For Firefox */
+  }
+  
+  h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  .inputField {
+    margin-bottom: 20px;
+  }
+  
+  .inputField label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .dressCardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .dressCardContainer div {
+    cursor: pointer;
+  }
+  
+  .AddOutfitFooter {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+    width: 100%; /* Full width for buttons */
+  }
+  
+  .AddOutfitFooter h3 {
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  .AddOutfitFooter input[type="file"] {
+    display: none;
+  }
+  
+  .AddOutfitFooter div {
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  .AddOutfitFooter img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effects */
+  }
+  
+  .AddOutfitFooter > button:nth-child(2) {
+    background-color: green;
+  }
+  
+  .AddOutfitFooter > button:nth-child(3) {
+    background-color: red;
+  }
+  
+  button:hover {
+    opacity: 0.8; /* Slight transparency on hover for buttons */
+  }
+  
+  button:last-child {
+    background-color: red; /* Ensure cancel button is red */
+  }
+  
+  button:last-child:hover {
+    background-color: darkred; /* Darker shade on hover for cancel button */
+  }
+  

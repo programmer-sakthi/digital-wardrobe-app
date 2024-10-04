@@ -10,6 +10,8 @@ import AllDresses from "./Pages/All Dresses/AllDresses";
 import Login from "./Pages/Login/Login";
 import Profile from "./Pages/Profile/Profile";
 import Signup from "./Pages/Signup/Signup";
+import Laundry from "./Pages/Laundry/Laundry";
+import Outfit from "./Pages/Outfits/Outfit";
 
 const App = () => {
   return (
@@ -39,6 +41,23 @@ const App = () => {
           element={
             <Layout>
               <Profile />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/laundry"
+          element={
+            <Layout>
+              <Laundry />
+            </Layout>
+          }
+        />
+        <Route
+          path="/outfits"
+          element={
+            <Layout>
+              <Outfit />
             </Layout>
           }
         />
