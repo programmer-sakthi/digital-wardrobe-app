@@ -1,14 +1,17 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { auth, db } from "../../config/firebase"; // Remove storage
-import AddOutfit from "./AddOutfit";
-import { v4 } from "uuid";
+import { auth, db } from "../../config/firebase"; // Firebase Firestore configuration
+import AddOutfit from "./AddOutfit"; // Component for adding outfits
+import OutfitCard from "./OutfitCard"; // Component for displaying outfit details
+import classes from './Outfit.module.css'; // Import the CSS for styling
 
 const Outfit = () => {
-  const [outfits, setOutfits] = useState([]);
-  const [showAddOutfit, setShowAddOutfit] = useState(false);
+  const [outfits, setOutfits] = useState([]); // State to hold the list of outfits
+  const [showAddOutfit, setShowAddOutfit] = useState(false); // State to control the add outfit modal
+  const [selectedOutfit, setSelectedOutfit] = useState(null); // State for the selected outfit
 
+  // Function to create a new outfit
   const createOutfit = async (outfit) => {
     setShowAddOutfit(false);
     const outfitCollectionRef = collection(db, "OutfitCollection");
@@ -17,16 +20,18 @@ const Outfit = () => {
       const newOutfit = {
         name: outfit.name,
         dresses: outfit.dresses,
-        imageURL: outfit.image // Directly use the image URL passed from AddOutfit
+        imageURL: outfit.image ,
+        uid : outfit.uid
       };
-      setOutfits([...outfits, newOutfit]);
-      await addDoc(outfitCollectionRef, newOutfit);
+      setOutfits([...outfits, newOutfit]); 
+      await addDoc(outfitCollectionRef, newOutfit); 
       toast.success("Outfit added successfully!");
     } catch (error) {
       toast.error(`Error adding outfit: ${error.message}`);
     }
   };
 
+  // Effect to fetch outfits from Firestore
   useEffect(() => {
     const fetchOutfits = async () => {
       try {
@@ -36,7 +41,11 @@ const Outfit = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        setOutfits(fetchedOutfits); // Update state with fetched outfits
+        console.log(fetchedOutfits);
+        setOutfits(fetchedOutfits)
+        setOutfits(fetchedOutfits.filter( (ele) => {
+          return ele.uid===auth.currentUser.uid
+        })); 
       } catch (error) {
         toast.error(`Error fetching outfits: ${error.message}`);
       }
@@ -45,43 +54,55 @@ const Outfit = () => {
     fetchOutfits(); // Fetch outfits when component mounts
   }, []);
 
+  // Function to handle showing the add outfit modal
   const handleAddOutfit = () => {
-    setShowAddOutfit(true); // Show modal to add outfit
+    setShowAddOutfit(true);
   };
 
+  // Function to close the add outfit modal
   const closeModal = () => {
-    setShowAddOutfit(false); // Close modal
+    setShowAddOutfit(false);
+  };
+
+  // Function to open the OutfitCard modal for a selected outfit
+  const openOutfitCard = (outfit) => {
+    setSelectedOutfit(outfit);
+  };
+
+  // Function to close the OutfitCard modal
+  const closeOutfitCard = () => {
+    setSelectedOutfit(null);
   };
 
   return (
-    <div>
+    <div className={classes.container}>
       {showAddOutfit && (
         <AddOutfit handleAdd={createOutfit} closeModal={closeModal} />
       )}
-      <div>
-        <button onClick={handleAddOutfit}>Add Outfit</button>
+      <div className={classes.buttonContainer}>
+        <button className={classes.button} onClick={handleAddOutfit}>
+          Add Outfit
+        </button>
       </div>
-      <div style={{ color: "white" }}>
-        <h1>Your Outfits:</h1>
-        <div>
-          {outfits.map((outfit) => (
-            <div key={outfit.id}>
-              {outfit.imageURL ? (
-                <img src={outfit.imageURL} alt={outfit.name} style={{ width: '100px', height: '100px' }} />
-              ) : (
-                <h1>{outfit.name}</h1>
-              )}
-              <ul>
-                {(outfit.dresses?.length > 0 ? outfit.dresses : []).map(
-                  (dress, index) => (
-                    <li key={index}>{dress.data.title || "Unnamed Dress"}</li>
-                  )
-                )}
-              </ul>
-            </div>
-          ))}
-        </div>
+      <h1 className={classes.title}>Your Outfits:</h1>
+      <div className={classes.outfitGrid}>
+        {outfits.map((outfit) => (
+          <div key={outfit.id} onClick={() => openOutfitCard(outfit)} className={classes.outfitItem}>
+            {outfit.imageURL ? (
+              <img src={outfit.imageURL} alt={outfit.name} className={classes.outfitImage} />
+            ) : (
+              <h1 className={classes.outfitName}>{outfit.name}</h1>
+            )}
+            <h2 className={classes.outfitName}>{outfit.name}</h2>
+          </div>
+        ))}
       </div>
+      {selectedOutfit && (
+        <>
+          <div className={classes.overlay} onClick={closeOutfitCard}></div>
+          <OutfitCard outfit={selectedOutfit} onClose={closeOutfitCard} />
+        </>
+      )}
     </div>
   );
 };

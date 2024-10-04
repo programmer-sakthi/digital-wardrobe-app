@@ -1,0 +1,83 @@
+/* Container for the entire outfit section */
+.container {
+    padding: 20px;
+    color: white;
+  }
+  
+  /* Centering the Add Outfit button */
+  .buttonContainer {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    margin-bottom: 20px; /* Space below the button */
+  }
+  
+  /* Styles for the button */
+  .button {
+    padding: 10px 15px;
+    background-color: #007bff; /* Blue background for button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; /* Smooth transition for hover */
+  }
+  
+  .button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Heading styles */
+  .title {
+    margin-bottom: 15px;
+    font-size: 24px; /* Main heading size */
+  }
+  
+  /* Grid layout for outfits */
+  .outfitGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 20px; /* Space between items */
+  }
+  
+  /* Styling for outfit items in the list */
+  .outfitItem {
+    display: flex;
+    flex-direction: column; /* Stack image and name */
+    align-items: center; /* Center the image and text */
+    margin: 10px 0; /* Spacing between outfits */
+    cursor: pointer; /* Indicate clickable items */
+    transition: transform 0.2s; /* Smooth scaling effect */
+  }
+  
+  .outfitItem:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+  
+  /* Styling for outfit images */
+  .outfitImage {
+    border-radius: 5px; /* Rounded corners for images */
+    width: 100px; /* Fixed width for consistency */
+    height: 100px; /* Fixed height for consistency */
+    margin-bottom: 10px; /* Space below the image */
+  }
+  
+  /* Overlay for the modal */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    z-index: 999; /* Ensure it's above all other elements */
+  }
+  
+  /* Style for the outfit image in the modal */
+  .outfitModalImage {
+    width: 70%; /* Width of the outfit image in the modal */
+    max-height: 200px; /* Max height to prevent overflow */
+    object-fit: cover; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Spacing below the image */
+  }
+  

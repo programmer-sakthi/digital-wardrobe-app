@@ -120,7 +120,8 @@ const AddOutfit = (props) => {
               const outfit = {
                 name: outfitName,
                 dresses: selectedDressList,
-                image: imageUrl, // Use the upload URL
+                image: imageUrl, 
+                uid : auth.currentUser.uid
               };
               props.handleAdd(outfit);
             }}

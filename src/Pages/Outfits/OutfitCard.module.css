@@ -1,0 +1,66 @@
+.outfitCard {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    max-width: 90%; 
+    max-height: 80%; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    color : black;
+  }
+  
+  .outfitImage {
+    width: 70%; 
+    max-height: 200px; 
+    object-fit: cover; 
+    margin-bottom: 20px;
+  }
+  
+  .dressItem {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .dressImage {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .closeButton {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
+  }
+  
+  /* Hide scrollbar */
+  .outfitCard::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+  
+  .outfitCard {
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    scrollbar-width: none; /* For Firefox */
+  }
+  
