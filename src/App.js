@@ -12,6 +12,7 @@ import Profile from "./Pages/Profile/Profile";
 import Signup from "./Pages/Signup/Signup";
 import Laundry from "./Pages/Laundry/Laundry";
 import Outfit from "./Pages/Outfits/Outfit";
+import PageNotFound from "./Components/PageNotFound"; // Import PageNotFound component
 
 const App = () => {
   return (
@@ -35,7 +36,6 @@ const App = () => {
             </Layout>
           }
         />
-
         <Route
           path="/profile"
           element={
@@ -44,7 +44,6 @@ const App = () => {
             </Layout>
           }
         />
-
         <Route
           path="/laundry"
           element={
@@ -61,6 +60,7 @@ const App = () => {
             </Layout>
           }
         />
+        <Route path="*" element={<PageNotFound />} /> {/* Catch-all route */}
       </Routes>
       <ToastContainer />
     </div>

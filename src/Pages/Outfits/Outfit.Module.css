@@ -27,17 +27,17 @@
     background-color: #0056b3; /* Darker blue on hover */
   }
   
-  /* Heading styles */
   .title {
-    margin-bottom: 15px;
-    font-size: 24px; /* Main heading size */
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 24px; 
+    margin-top: 40px;
   }
   
-  /* Grid layout for outfits */
   .outfitGrid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns */
-    gap: 20px; /* Space between items */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; 
   }
   
   /* Styling for outfit items in the list */

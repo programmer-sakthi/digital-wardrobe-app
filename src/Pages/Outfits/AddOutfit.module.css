@@ -1,4 +1,5 @@
 .AddOutfit {
+    color: black;
     position: fixed;
     left: 0;
     top: 0;
@@ -22,6 +23,10 @@
     overflow-y: auto; /* Enable vertical scrolling */
     padding: 20px; /* Padding inside the modal */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  }
+
+  .modalContent h1{
+    text-align: center;
   }
   
   /* Hide the scrollbar while keeping the ability to scroll */

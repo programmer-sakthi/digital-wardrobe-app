@@ -77,7 +77,7 @@ const AddOutfit = (props) => {
         </div>
 
         <div>
-          <h1>Available Dresses</h1>
+          <h6>Available Dresses</h6>
           <div className={classes.dressCardContainer}>
             {availableDresses.map((d) => (
               <div key={d.id} onClick={() => handleDressClick(d)}>
@@ -88,7 +88,7 @@ const AddOutfit = (props) => {
         </div>
 
         <div>
-          <h1>Selected Dresses</h1>
+          <h6>Selected Dresses</h6>
           <div className={classes.dressCardContainer}>
             {selectedDressList.map((d) => (
               <div key={d.id} onClick={() => handleDressClick(d)}>
