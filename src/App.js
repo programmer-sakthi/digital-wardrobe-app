@@ -1,20 +1,41 @@
-// App.js
-import React from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import PageNotFound from "./Components/PageNotFound"; // Import PageNotFound component
+import ProtectedRoute from "./Components/ProtectedRoute";
+import { auth } from "./config/firebase";
 import Layout from "./Layout/Layout";
 import AddDresses from "./Pages/Add Dresses/AddDresses";
 import AllDresses from "./Pages/All Dresses/AllDresses";
+import Laundry from "./Pages/Laundry/Laundry";
 import Login from "./Pages/Login/Login";
+import Outfit from "./Pages/Outfits/Outfit";
 import Profile from "./Pages/Profile/Profile";
 import Signup from "./Pages/Signup/Signup";
-import Laundry from "./Pages/Laundry/Laundry";
-import Outfit from "./Pages/Outfits/Outfit";
-import PageNotFound from "./Components/PageNotFound"; // Import PageNotFound component
 
 const App = () => {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div> {/* Custom spinner */}
+      </div>
+    );
+  }
+
   return (
     <div>
       <Routes>
@@ -23,41 +44,51 @@ const App = () => {
         <Route
           path="/all-dresses"
           element={
-            <Layout>
-              <AllDresses />
-            </Layout>
+            <ProtectedRoute user={user}>
+              <Layout>
+                <AllDresses />
+              </Layout>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/add-dresses"
           element={
-            <Layout>
-              <AddDresses />
-            </Layout>
+            <ProtectedRoute user={user}>
+              <Layout>
+                <AddDresses />
+              </Layout>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/profile"
           element={
-            <Layout>
-              <Profile />
-            </Layout>
+            <ProtectedRoute user={user}>
+              <Layout>
+                <Profile />
+              </Layout>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/laundry"
           element={
-            <Layout>
-              <Laundry />
-            </Layout>
+            <ProtectedRoute user={user}>
+              <Layout>
+                <Laundry />
+              </Layout>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/outfits"
           element={
-            <Layout>
-              <Outfit />
-            </Layout>
+            <ProtectedRoute user={user}>
+              <Layout>
+                <Outfit />
+              </Layout>
+            </ProtectedRoute>
           }
         />
         <Route path="*" element={<PageNotFound />} /> {/* Catch-all route */}
