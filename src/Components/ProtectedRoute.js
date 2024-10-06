@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ProtectedRoute = (props) => {
-  console.log(props.user);
-  return props.user ? props.children : <NotLoggedIn />;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If the user exists but email is not verified, redirect to login page
+    if (props.user && !props.user.emailVerified) {
+      navigate("/"); 
+      toast.error("Email not verified")
+      toast.info("Check your mail for verfication link");
+    }
+  }, [props.user, navigate]);  // Run this effect whenever props.user changes
+
+  // If user is not logged in, show the NotLoggedIn component
+  if (!props.user) {
+    return <NotLoggedIn />;
+  }
+
+  // If the user is logged in and their email is verified, render the children (protected content)
+  if (props.user?.emailVerified) {
+    return props.children;
+  }
+
+  return null;  // In case of unexpected scenario, return null
 };
 
 const NotLoggedIn = () => {
@@ -16,15 +37,15 @@ const NotLoggedIn = () => {
       alignItems: "center",
       flexDirection: "column",
       minHeight: "100vh",
-      backgroundColor: "black", // Set background to black
-      color: "white", // Set text color to white for contrast
+      backgroundColor: "black",
+      color: "white",
       fontFamily: "Arial, sans-serif",
       animation: "fadeIn 1s ease-out",
     },
     content: {
       textAlign: "center",
       padding: "2rem",
-      backgroundColor: "#333", // Dark background for content section
+      backgroundColor: "#333",
       borderRadius: "10px",
       boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
       animation: "scaleUp 0.5s ease-out",
@@ -32,7 +53,7 @@ const NotLoggedIn = () => {
     heading: {
       fontSize: "2rem",
       fontWeight: "bold",
-      color: "#fff", // White color for heading
+      color: "#fff",
       marginBottom: "1rem",
     },
     button: {
@@ -54,10 +75,9 @@ const NotLoggedIn = () => {
     icon: {
       fontSize: "3rem",
       marginBottom: "1rem",
-      color: "#f44336", // Bright red color for icon
+      color: "#f44336",
     },
   };
-
 
   return (
     <div style={styles.container}>
@@ -72,8 +92,7 @@ const NotLoggedIn = () => {
             style={styles.button}
             onClick={() => navigate("/")}
             onMouseOver={(e) =>
-              (e.target.style.backgroundColor =
-                styles.buttonHover.backgroundColor)
+              (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)
             }
             onMouseOut={(e) =>
               (e.target.style.backgroundColor = styles.button.backgroundColor)

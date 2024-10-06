@@ -1,8 +1,4 @@
-import {
-  getAuth,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,7 +7,7 @@ import classes from "./Login.module.css";
 
 function Login() {
   const navigate = useNavigate();
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,22 +27,8 @@ function Login() {
       })
       .catch((error) => {
         toast.error(error.message);
-        setLoading(false)
+        setLoading(false);
         console.log(error);
-      });
-  };
-
-  const handleResetPassword = () => {
-    const auth = getAuth();
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        toast.info("Password reset message sent to the entered email");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode + " : " + errorMessage);
-        toast.error(errorMessage);
       });
   };
 
@@ -82,7 +64,9 @@ function Login() {
           </div>
           <div className={classes.forgotPassword}>
             forget your password ?
-            <span onClick={handleResetPassword}>Reset password</span>
+            <span onClick={(e) => navigate("/reset-password")}>
+              Reset password
+            </span>
           </div>
           <button className={classes.loginButton} onClick={handleLogin}>
             Login

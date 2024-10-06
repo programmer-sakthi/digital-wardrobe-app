@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import PageNotFound from "./Components/PageNotFound"; // Import PageNotFound component
+import PageNotFound from "./Components/PageNotFound";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import { auth } from "./config/firebase";
 import Layout from "./Layout/Layout";
@@ -15,6 +15,7 @@ import Login from "./Pages/Login/Login";
 import Outfit from "./Pages/Outfits/Outfit";
 import Profile from "./Pages/Profile/Profile";
 import Signup from "./Pages/Signup/Signup";
+import ResetPassword from "./Pages/Reset Password/ResetPassword";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -31,7 +32,7 @@ const App = () => {
   if (isLoading) {
     return (
       <div className="loading-container">
-        <div className="spinner"></div> {/* Custom spinner */}
+        <div className="spinner"></div>
       </div>
     );
   }
@@ -41,6 +42,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route
           path="/all-dresses"
           element={
