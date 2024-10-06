@@ -1,17 +1,16 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { auth, db } from "../../config/firebase"; // Firebase Firestore configuration
-import AddOutfit from "./AddOutfit"; // Component for adding outfits
-import OutfitCard from "./OutfitCard"; // Component for displaying outfit details
-import classes from './Outfit.module.css'; // Import the CSS for styling
+import { auth, db } from "../../config/firebase";
+import AddOutfit from "./AddOutfit";
+import OutfitCard from "./OutfitCard";
+import classes from './Outfit.module.css';
 
 const Outfit = () => {
-  const [outfits, setOutfits] = useState([]); // State to hold the list of outfits
-  const [showAddOutfit, setShowAddOutfit] = useState(false); // State to control the add outfit modal
-  const [selectedOutfit, setSelectedOutfit] = useState(null); // State for the selected outfit
+  const [outfits, setOutfits] = useState([]);
+  const [showAddOutfit, setShowAddOutfit] = useState(false);
+  const [selectedOutfit, setSelectedOutfit] = useState(null);
 
-  // Function to create a new outfit
   const createOutfit = async (outfit) => {
     setShowAddOutfit(false);
     const outfitCollectionRef = collection(db, "OutfitCollection");
@@ -31,7 +30,7 @@ const Outfit = () => {
     }
   };
 
-  // Effect to fetch outfits from Firestore
+
   useEffect(() => {
     const fetchOutfits = async () => {
       try {
@@ -41,7 +40,7 @@ const Outfit = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log(fetchedOutfits);
+        // console.log(fetchedOutfits);
         setOutfits(fetchedOutfits)
         setOutfits(fetchedOutfits.filter( (ele) => {
           return ele.uid===auth.currentUser.uid

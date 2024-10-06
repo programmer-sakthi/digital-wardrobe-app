@@ -1,0 +1,66 @@
+.ModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .AddLaundryModal {
+    background-color: #fff;
+    padding: 20px;
+    width: 500px;
+    max-height: 80vh; /* Limit the height of the modal */
+    overflow-y: auto; /* Enable scrolling inside the modal */
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .CloseButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: red;
+  }
+  
+  .DressGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 200px; /* Limit the height of the dress grid */
+    overflow-y: auto; /* Enable scrolling in the grid */
+  }
+  
+  .DressImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  
+ /* Hide scrollbar */
+.AddLaundryModal::-webkit-scrollbar, 
+.DressGrid::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+.AddLaundryModal {
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.DressGrid {
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+  
