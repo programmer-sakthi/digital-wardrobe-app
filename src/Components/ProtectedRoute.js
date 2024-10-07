@@ -6,25 +6,21 @@ const ProtectedRoute = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // If the user exists but email is not verified, redirect to login page
     if (props.user && !props.user.emailVerified) {
-      navigate("/"); 
-      toast.error("Email not verified")
+      navigate("/");
+      toast.error("Email not verified");
       toast.info("Check your mail for verfication link");
     }
-  }, [props.user, navigate]);  // Run this effect whenever props.user changes
-
-  // If user is not logged in, show the NotLoggedIn component
+  }, [props.user, navigate]);
   if (!props.user) {
     return <NotLoggedIn />;
   }
 
-  // If the user is logged in and their email is verified, render the children (protected content)
   if (props.user?.emailVerified) {
     return props.children;
   }
 
-  return null;  // In case of unexpected scenario, return null
+  return null;
 };
 
 const NotLoggedIn = () => {
@@ -92,7 +88,8 @@ const NotLoggedIn = () => {
             style={styles.button}
             onClick={() => navigate("/")}
             onMouseOver={(e) =>
-              (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)
+              (e.target.style.backgroundColor =
+                styles.buttonHover.backgroundColor)
             }
             onMouseOut={(e) =>
               (e.target.style.backgroundColor = styles.button.backgroundColor)

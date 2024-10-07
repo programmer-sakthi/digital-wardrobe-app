@@ -8,11 +8,11 @@ import classes from "./SideBar.module.css";
 
 export function SideBar() {
   const navigate = useNavigate();
-  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
-    useState(false);
+  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
+
   const handleLogOut = async () => {
     await signOut(auth);
-    toast.info("User logged out successfully !");
+    toast.info("User logged out successfully!");
     navigate("/");
   };
 
@@ -24,14 +24,17 @@ export function SideBar() {
     const user = auth.currentUser;
     return (
       <div className={classes.DeleteModal}>
-        <h3>Are you sure want to delete your account ? </h3>
+        <h3>Are you sure you want to delete your account?</h3>
         <div>
           <button
             onClick={async () => {
-              await deleteUser(user).then(() => {
+              try {
+                await deleteUser(user);
                 toast.info("User deleted successfully");
                 navigate("/");
-              });
+              } catch (error) {
+                toast.error("Error deleting user: " + error.message);
+              }
             }}
           >
             Yes
@@ -64,7 +67,7 @@ export function SideBar() {
               window.open("https://www.github.com/programmer-sakthi", "_blank");
             }}
           >
-            About the creater
+            About the creator
           </Dropdown.Item>
           <Dropdown.Item onClick={handleDeleteAccount}>
             Delete account
@@ -75,7 +78,7 @@ export function SideBar() {
   };
 
   return (
-    <div>
+    <div className={classes.sideBarContainer}>
       {showDeleteConfirmationModal ? (
         <DeleteConfirmationModal />
       ) : (

@@ -70,6 +70,8 @@ const ListDresses = (props) => {
       ) : (
         dressList.map((ele, index) => (
           <Card
+            key={index}
+            className={classes.fadeIn}
             dressList={ele}
           />
         ))

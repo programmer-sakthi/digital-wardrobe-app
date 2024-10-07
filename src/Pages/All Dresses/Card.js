@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { MdDelete, MdEdit } from "react-icons/md";
-import "./Card.css";
+import classes from "./Card.module.css";
 
 export const Card = ({ dressList }) => {
   const [showModal, setShowModal] = useState(false);
-
+  console.log(dressList)
   const toggleModal = () => {
     console.log(dressList);
 
@@ -16,12 +16,19 @@ export const Card = ({ dressList }) => {
     setShowModal(false);
   };
 
+  const handleDelete = () => {
+
+  };
+
   const Modal = () => {
     return (
-      <div className="Modal-container" onClick={closeModal}>
-        <div className="Modal" onClick={(e) => e.stopPropagation()}>
-          <div className="Modal-header">
-            <button>
+      <div
+        className={`${classes.ModalContainer} ${showModal ? classes.show : ""}`}
+        onClick={closeModal}
+      >
+        <div className={classes.Modal} onClick={(e) => e.stopPropagation()}>
+          <div className={classes.ModalHeader}>
+            <button onClick={handleDelete}>
               <MdDelete size={"30px"} />
             </button>
             <button>
@@ -31,7 +38,7 @@ export const Card = ({ dressList }) => {
               <IoMdClose size={"30px"} />
             </button>
           </div>
-          <div className="modal-content">
+          <div className={classes.modalContent}>
             <img
               height="100px"
               width="100px"
@@ -114,16 +121,20 @@ export const Card = ({ dressList }) => {
               </tr>
             </table>
           </div>
-          <div className="modal-footer"></div>
+          <div className={classes.modalFooter}></div>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="card-container" onClick={toggleModal}>
+    <div className={classes.cardContainer} onClick={toggleModal}>
       {showModal && <Modal />}
-      <img src={dressList.imgSrc} alt={dressList.imgSrc} className="card-img" />
+      <img
+        src={dressList.imgSrc}
+        alt={dressList.imgSrc}
+        className={classes.cardImg}
+      />
     </div>
   );
 };

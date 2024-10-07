@@ -1,85 +1,106 @@
 @import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-
-.header
-{
-    width: 77%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    border-radius: 40px;
-    font-family: "Nerko One", cursive;
-    font-weight: 400;
-    font-style: normal;
-    display: flex;
-    border: 2px solid black;
-    align-items: center;
-    justify-content: space-between;
-    border: 2px solid grey;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+.header {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  border-radius: 40px;
+  font-family: "Nerko One", cursive;
+  font-weight: 400;
+  font-style: normal;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid grey;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  transition: all 0.3s ease;
 }   
 
-@media (max-width : 900px)
-{
-    .header{
-        width: 100%;
-    }
+.headerDiv {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.headerDiv
-{
-    margin-left: 10px;
-    width: 35%;
-    display: flex;
-    align-items: center;
-    gap : 20px;
+.header h1 {
+  margin: 0;
+  color: white;
+  font-size: 2rem;
+  transition: transform 0.3s ease;
 }
 
-
-.header h1{
-    margin: 10px;
-    color: white;
+.header h1:hover {
+  transform: scale(1.05);
 }
 
-@media (max-width : 200px)
-{
-    .header h1
-    {
-        margin-right: none;
-    }
-
+.header > nav {
+  font-family: "Kanit", sans-serif;
+  display: flex;
+  align-items: center;
 }
 
-.header>nav
-{
-    width: 50%;
-    font-family: "Kanit",sans-serif;
-    display: flex;
-    align-items: center;
+.header > nav > ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
 }
 
-.header>nav>ul {
-    width: 100%;
-    display: flex;
-    list-style: none;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0;
-    margin: 0;
+.header > nav > ul li {
+  cursor: pointer;
+  user-select: none;
+  padding: 10px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.header>nav>ul li {
-    cursor: pointer;
-    user-select: none;
-}
-
-.header>nav>ul li:hover:not(:nth-child(5)) {
-    transform: scale(1.2);
-    transition-duration: 300ms;
+.header > nav > ul li:hover:not(:nth-child(5)) {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
 }
 
 .header a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    width: 95%;
+    padding: 10px;
+  }
+
+  .headerDiv {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .header > nav {
+    width: 100%;
+  }
+
+  .header > nav > ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .header > nav > ul li {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
 }

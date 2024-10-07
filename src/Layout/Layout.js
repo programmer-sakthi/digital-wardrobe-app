@@ -1,16 +1,31 @@
 import React from 'react'
 import Header from './Header'
 
-function Layout(props) {
+function Layout({ children }) {
   return (
-    <div>
-        <header>
-            <Header />  
-        </header>
-        <main>
-            {props.children}
-        </main>
-
+    <div className="layout">
+      <header>
+        <Header />  
+      </header>
+      <main>
+        {children}
+      </main>
+      <style jsx>{`
+        .layout {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+        }
+        main {
+          flex: 1;
+          padding: 20px;
+        }
+        @media (max-width: 768px) {
+          main {
+            padding: 10px;
+          }
+        }
+      `}</style>
     </div>
   )
 }

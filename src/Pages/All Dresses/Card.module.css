@@ -1,5 +1,6 @@
-.card-container {
-  width: 15rem;
+.cardContainer {
+  width: 100%;
+  max-width: 15rem;
   border-radius: 1rem;
   box-shadow: 0px 10px 8px #999;
   display: flex;
@@ -9,21 +10,22 @@
   height: fit-content;
 }
 
-.card-img {
+.cardImg {
   width: 100%;
   border-radius: 1rem 1rem 0 0;
   height: 200px;
+  object-fit: cover;
 }
 
-.card-title {
+.cardTitle {
   margin: 0.5rem 5%;
 }
 
-.card-description {
+.cardDescription {
   margin: 0.5rem 5%;
 }
 
-.card-btn {
+.cardBtn {
   text-align: center;
   width: 90%;
   border-radius: 5px;
@@ -34,9 +36,7 @@
   margin: 0.5rem 0.5rem;
 }
 
-/* css for Modal */
-
-.Modal-container {
+.ModalContainer {
   position: fixed;
   left: 0;
   top: 0;
@@ -46,49 +46,66 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.3);
+  z-index: 1000;
 }
 
 .Modal {
   border-radius: 5px;
   color: black;
   background-color: burlywood;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-.Modal-header {
+.ModalHeader {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 }
 
-
-.Modal-header button {
+.ModalHeader button {
   border: none;
   outline: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
-.Modal-header .close {
-  cursor: pointer;
+.ModalHeader .close {
   width: fit-content;
   padding: 4px;
-  font-size: 40px;
+  font-size: 24px;
   margin-right: 10px;
 }
 
-
-.modal-content 
-{
+.modalContent {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.modal-content table 
-{
-  margin: 20px;
-  row-gap: 10px;
+.modalContent table {
+  margin: 20px 0;
+  width: 100%;
   background-color: transparent !important;
   border-collapse: separate;
   border-spacing: 0 15px;
+}
+
+.modalContent table td {
+  padding: 5px;
+  word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  .Modal {
+    padding: 10px;
+  }
+
+  .modalContent table {
+    font-size: 14px;
+  }
 }
