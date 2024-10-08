@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './OutfitCard.module.css'; // Import the CSS for styling
 
-const OutfitCard = ({ outfit, onClose }) => {
+const OutfitCard = ({ outfit, onClose, onDelete }) => {
   return (
     <div className={classes.outfitCard}>
       <h2>{outfit.name}</h2>
@@ -15,7 +15,10 @@ const OutfitCard = ({ outfit, onClose }) => {
           </li>
         ))}
       </ul>
-      <button className={classes.closeButton} onClick={onClose}>Close</button>
+      <div className={classes.buttonContainer}>
+        <button className={classes.closeButton} onClick={onClose}>Close</button>
+        <button className={classes.deleteButton} onClick={() => onDelete(outfit.id)}>Delete</button>
+      </div>
     </div>
   );
 };

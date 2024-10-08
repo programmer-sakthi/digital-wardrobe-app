@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { auth, db } from "../../config/firebase";
@@ -19,8 +19,8 @@ const Outfit = () => {
       const newOutfit = {
         name: outfit.name,
         dresses: outfit.dresses,
-        imageURL: outfit.image ,
-        uid : outfit.uid
+        imageURL: outfit.image,
+        uid: outfit.uid,
       };
       setOutfits([...outfits, newOutfit]); 
       await addDoc(outfitCollectionRef, newOutfit); 
@@ -30,6 +30,17 @@ const Outfit = () => {
     }
   };
 
+  const deleteOutfit = async (id) => {
+    const outfitDocRef = doc(db, "OutfitCollection", id);
+    try {
+      await deleteDoc(outfitDocRef);
+      setOutfits(outfits.filter((outfit) => outfit.id !== id));
+      toast.success("Outfit deleted successfully!");
+      closeOutfitCard(); // Close the outfit card if the deleted outfit was selected
+    } catch (error) {
+      toast.error(`Error deleting outfit: ${error.message}`);
+    }
+  };
 
   useEffect(() => {
     const fetchOutfits = async () => {
@@ -39,12 +50,9 @@ const Outfit = () => {
         const fetchedOutfits = outfitDocs.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-        }));
-        // console.log(fetchedOutfits);
-        setOutfits(fetchedOutfits)
-        setOutfits(fetchedOutfits.filter( (ele) => {
-          return ele.uid===auth.currentUser.uid
-        })); 
+        })).filter((ele) => ele.uid === auth.currentUser.uid); 
+        
+        setOutfits(fetchedOutfits);
       } catch (error) {
         toast.error(`Error fetching outfits: ${error.message}`);
       }
@@ -53,22 +61,18 @@ const Outfit = () => {
     fetchOutfits(); // Fetch outfits when component mounts
   }, []);
 
-  // Function to handle showing the add outfit modal
   const handleAddOutfit = () => {
     setShowAddOutfit(true);
   };
 
-  // Function to close the add outfit modal
   const closeModal = () => {
     setShowAddOutfit(false);
   };
 
-  // Function to open the OutfitCard modal for a selected outfit
   const openOutfitCard = (outfit) => {
     setSelectedOutfit(outfit);
   };
 
-  // Function to close the OutfitCard modal
   const closeOutfitCard = () => {
     setSelectedOutfit(null);
   };
@@ -99,7 +103,7 @@ const Outfit = () => {
       {selectedOutfit && (
         <>
           <div className={classes.overlay} onClick={closeOutfitCard}></div>
-          <OutfitCard outfit={selectedOutfit} onClose={closeOutfitCard} />
+          <OutfitCard outfit={selectedOutfit} onClose={closeOutfitCard} onDelete={deleteOutfit} />
         </>
       )}
     </div>

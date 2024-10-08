@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { auth, db } from "../../config/firebase";
@@ -27,6 +27,17 @@ const Laundry = () => {
     fetchLaundry();
   }, []);
 
+  // Function to delete a laundry entry
+  const handleDeleteLaundry = async (id) => {
+    try {
+      await deleteDoc(doc(db, "LaundryCollection", id));
+      toast.success("Laundry deleted successfully!");
+      fetchLaundry(); // Refresh the laundry list after deletion
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   // This function will be passed down to AddLaundry to update the laundry list after adding
   const handleLaundryUpdate = () => {
     fetchLaundry(); // Refresh the laundry list after adding a new one
@@ -36,21 +47,20 @@ const Laundry = () => {
     <div>
       <AddLaundry onLaundryUpdate={handleLaundryUpdate} />
 
-      <table
-        style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px"  }} 
-      >
+      <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
         <thead>
           <tr>
             <th style={tableHeaderStyle}>Date</th>
             <th style={tableHeaderStyle}>Type</th>
             <th style={tableHeaderStyle}>Description</th>
             <th style={tableHeaderStyle}>Dresses</th>
+            <th style={tableHeaderStyle}>Actions</th>
           </tr>
         </thead>
         <tbody>
           {allLaundry.length === 0 ? (
             <tr>
-              <td colSpan="4" style={tableDataStyle}>
+              <td colSpan="5" style={tableDataStyle}>
                 No laundry records found
               </td>
             </tr>
@@ -80,6 +90,20 @@ const Laundry = () => {
                     "No dresses"
                   )}
                 </td>
+                <td style={tableDataStyle}>
+                  <button
+                    onClick={() => handleDeleteLaundry(laundry.id)}
+                    style={{
+                      backgroundColor: "#ff4d4d",
+                      color: "white",
+                      border: "none",
+                      padding: "8px 12px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))
           )}
@@ -99,7 +123,7 @@ const tableHeaderStyle = {
 const tableDataStyle = {
   padding: "10px",
   borderBottom: "1px solid #ddd",
-  color:  "white",
+  color: "white",
 };
 
 export default Laundry;

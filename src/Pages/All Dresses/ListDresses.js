@@ -23,6 +23,7 @@ const ListDresses = (props) => {
       const imageRef = ref(storage, imageURL);
       const imageSrc = await getDownloadURL(imageRef);
       return {
+        id: doc.id,
         imgSrc: imageSrc,
         title: doc.data().title,
         description: doc.data().description,
@@ -34,7 +35,8 @@ const ListDresses = (props) => {
         price: doc.data().price,
         purchaseDate: doc.data().purchaseDate,
         purchasedFrom: doc.data().purchasedFrom,
-        uid: doc.data().uid
+        uid: doc.data().uid,
+        dress_id: doc.data().dress_id 
       };
     });
 
@@ -73,6 +75,7 @@ const ListDresses = (props) => {
             key={index}
             className={classes.fadeIn}
             dressList={ele}
+            fetchFireBase={fetchFireBase}
           />
         ))
       )}

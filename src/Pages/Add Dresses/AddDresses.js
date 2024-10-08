@@ -35,7 +35,8 @@ function AddDresses() {
       price,
       purchaseDate,
       purchasedFrom,
-      uid : user.uid
+      uid : user.uid,
+      dress_id: v4()
     };
     const imageRef = ref(storage, imageURL);
     uploadBytes(imageRef, image).then(() => {
